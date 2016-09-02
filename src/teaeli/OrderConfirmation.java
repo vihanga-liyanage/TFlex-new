@@ -119,7 +119,7 @@ public class OrderConfirmation extends javax.swing.JFrame {
         Set<String> set = new HashSet<String>();
         String supName;
         for (int i = 0; i < model.getRowCount(); i++) {
-            supName = model.getValueAt(i, 7).toString();
+            supName = model.getValueAt(i, 4).toString();
             set.add(supName);
         }
         TreeSet sortedSet = new TreeSet<String>(set);
@@ -133,10 +133,10 @@ public class OrderConfirmation extends javax.swing.JFrame {
         for (String supName : supplierList) {
             List<String> supwiseDetails = new ArrayList<String>();
             for (int i = 0; i < masterTableModel.getRowCount(); i++) {
-                String supNameFromMaster = masterTableModel.getValueAt(i, 7).toString();
+                String supNameFromMaster = masterTableModel.getValueAt(i, 4).toString();
                 if (supName.equals(supNameFromMaster)) {
                     supwiseDetails.add(masterTableModel.getValueAt(i, 0).toString());
-                    supwiseDetails.add(masterTableModel.getValueAt(i, 6).toString());
+                    supwiseDetails.add(masterTableModel.getValueAt(i, 3).toString());
 
                 }
             }

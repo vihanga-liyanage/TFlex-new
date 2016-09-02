@@ -220,12 +220,9 @@
             <Component class="javax.swing.JTable" name="blendListTbl">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="0">
+                  <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="Blend Name" type="java.lang.Object"/>
                     <Column editable="false" title="Qty Required (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Visible Stock (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Invisible Stock (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Balance Qty Required(g)" type="java.lang.Object"/>
                     <Column editable="false" title="Excess Qty (g)" type="java.lang.Object"/>
                     <Column editable="true" title="Final Qty (g)" type="java.lang.Object"/>
                   </Table>
@@ -233,21 +230,6 @@
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="250" resizable="false">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="180" resizable="false">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="180" resizable="false">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="180" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>

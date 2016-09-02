@@ -8,7 +8,6 @@ import classes.PDF;
 import classes.ResultArray;
 import classes.Validation;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -95,7 +94,7 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
         for (int i = 0; i < model.getRowCount(); i++) {
             Vector row = new Vector();
             row.add(model.getValueAt(i, 0));
-            row.add(model.getValueAt(i, 6));
+            row.add(model.getValueAt(i, 3));
             blendTBModel.addRow(row);
         }
 
@@ -126,7 +125,7 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
         });
         
         //Removing the category colum from master table
-        masterPlanTbl.removeColumn(masterPlanTbl.getColumn(masterPlanTbl.getColumnName(8)));
+        masterPlanTbl.removeColumn(masterPlanTbl.getColumn(masterPlanTbl.getColumnName(5)));
         
         //enabling sorting
         blendListTbl.setAutoCreateRowSorter(true);
@@ -175,18 +174,19 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
     private void setExcessQty(int row) {
         String ingName = masterPlanTbl.getValueAt(row, 0).toString();
         ingName = ingName.replace("'", "\\'");
-        float requiredQty = parseFloat(masterPlanTbl.getValueAt(row, 4).toString());
-        if (new Validation().isFloat(masterPlanTbl.getValueAt(row, 6).toString())) {
-            float finalQty = parseFloat(masterPlanTbl.getValueAt(row, 6).toString());
+        float requiredQty = parseFloat(masterPlanTbl.getValueAt(row, 1).toString());
+        if (new Validation().isFloat(masterPlanTbl.getValueAt(row, 3).toString())) {
+            float finalQty = parseFloat(masterPlanTbl.getValueAt(row, 3).toString());
             if (finalQty < requiredQty) {
                 JOptionPane.showMessageDialog(masterPlanTbl, "<html>You cannot decrease the <b>" + ingName + "</b> final quantity less than required quantity!</html>", "Invalid Final Quantity", 2);
-                masterPlanTbl.setValueAt(formatNum(requiredQty), row, 6);
+                masterPlanTbl.setValueAt(formatNum(requiredQty), row, 3);
             } else {
-                masterPlanTbl.setValueAt(formatNum(finalQty - requiredQty), row, 5);
+                masterPlanTbl.setValueAt(formatNum(finalQty - requiredQty), row, 2);
+                masterPlanTbl.setValueAt(formatNum(finalQty), row, 3);
             }
         } else {
             JOptionPane.showMessageDialog(masterPlanTbl, "<html>Please enter a valid final quantity for <b>" + ingName + "</b>.</html>", "Invalid Final Quantity", 2);
-            masterPlanTbl.setValueAt(formatNum(requiredQty), row, 6);
+            masterPlanTbl.setValueAt(formatNum(requiredQty), row, 3);
         }
     }
 
@@ -200,20 +200,20 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
                 ingQty += parseFloat(masterPlanTbl.getValueAt(i, 1).toString());
 
                 masterPlanTbl.setValueAt(formatNum(ingQty), i, 1);
-                float visible = parseFloat(masterPlanTbl.getValueAt(i, 2).toString());
-                float invisible = parseFloat(masterPlanTbl.getValueAt(i, 3).toString());
-                float balance = 0;
-
-                balance = ingQty - visible;
-                if (balance > 0) {
-                    balance = balance - invisible;
-                }
-                if (balance < 0) {
-                    balance = 0;
-                }
-                masterPlanTbl.setValueAt(formatNum(balance), i, 4);
-                float excess = parseFloat(masterPlanTbl.getValueAt(i, 5).toString());
-                masterPlanTbl.setValueAt(formatNum(excess + balance), i, 6);
+//                float visible = parseFloat(masterPlanTbl.getValueAt(i, 2).toString());
+//                float invisible = parseFloat(masterPlanTbl.getValueAt(i, 3).toString());
+//                float balance = 0;
+//
+//                balance = ingQty - visible;
+//                if (balance > 0) {
+//                    balance = balance - invisible;
+//                }
+//                if (balance < 0) {
+//                    balance = 0;
+//                }
+//                masterPlanTbl.setValueAt(formatNum(balance), i, 4);
+                float excess = parseFloat(masterPlanTbl.getValueAt(i, 2).toString());
+                masterPlanTbl.setValueAt(formatNum(excess + ingQty), i, 3);
                 isNew = false;
                 break;
             }
@@ -222,24 +222,24 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             Vector newRow = new Vector();
             newRow.addElement(row.get(1));
             newRow.addElement(formatNum(ingQty));
-            float visible = parseFloat(row.get(3));
-            float invisible = parseFloat(row.get(5));
-            newRow.addElement(formatNum(visible));
-            newRow.addElement(formatNum(invisible));
-
-            //calculating qty required
-            float balance = 0;
-            balance = ingQty - visible;
-            if (balance > 0) {
-                balance = balance - invisible;
-            }
-            if (balance < 0) {
-                balance = 0;
-            }
-
-            newRow.addElement(formatNum(balance));
+//            float visible = parseFloat(row.get(3));
+//            float invisible = parseFloat(row.get(5));
+//            newRow.addElement(formatNum(visible));
+//            newRow.addElement(formatNum(invisible));
+//
+//            //calculating qty required
+//            float balance = 0;
+//            balance = ingQty - visible;
+//            if (balance > 0) {
+//                balance = balance - invisible;
+//            }
+//            if (balance < 0) {
+//                balance = 0;
+//            }
+//
+//            newRow.addElement(formatNum(balance));
             newRow.addElement("0.0");
-            newRow.addElement(formatNum(balance));
+            newRow.addElement(formatNum(ingQty));
             newRow.addElement(row.get(6));
 
             //setting category into the hidden field
@@ -327,40 +327,40 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             String blendName = model.getValueAt(i, 0).toString();
             blendName = blendName.replace("'", "\\'");
             int reqQty = (parseInt(model.getValueAt(i, 1).toString()));
-            int visibleStock = parseInt(model.getValueAt(i, 2).toString());
-            int invisibleStock = parseInt(model.getValueAt(i, 3).toString());
-            String balanceQty = String.valueOf(parseInt(model.getValueAt(i, 4).toString()));
-            String excessQty = String.valueOf(parseInt(model.getValueAt(i, 5).toString()));
+//            int visibleStock = parseInt(model.getValueAt(i, 2).toString());
+//            int invisibleStock = parseInt(model.getValueAt(i, 3).toString());
+//            String balanceQty = String.valueOf(parseInt(model.getValueAt(i, 4).toString()));
+            String excessQty = String.valueOf(parseInt(model.getValueAt(i, 2).toString()));
 
             String blendID = blend.getBlendIDByBlendName(blendName);
             
             //placing order blend
-            String[] data = {orderIDLabel.getText(), blendID, String.valueOf(reqQty), String.valueOf(visibleStock), String.valueOf(invisibleStock), balanceQty, excessQty};
+            String[] data = {orderIDLabel.getText(), blendID, String.valueOf(reqQty), String.valueOf(""), String.valueOf(""), "", excessQty};
             if (!order.placeOrderBlends(data)) {
                 JOptionPane.showMessageDialog(rootPane, "There were some issues with the database. Please contact developers.\n\nError code : CreatNewBlendOrder2 348", "Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
 
-            //calculating stocks
-            if (reqQty > visibleStock) {
-                reqQty -= visibleStock;
-                visibleStock = 0;
-                if (reqQty > invisibleStock) {
-                    invisibleStock = 0;
-                } else {
-                    invisibleStock -= reqQty;
-                }
-            } else {
-                visibleStock -= reqQty;
-            }
-            invisibleStock += parseInt(excessQty);
-            
-            //updating blend stock
-            data = new String[]{String.valueOf(visibleStock), String.valueOf(invisibleStock), blendID};
-            if (!blend.updateBlendStock(data)) {
-                JOptionPane.showMessageDialog(rootPane, "There were some issues with the database. Please contact developers.\n\nError code : CreatNewBlendOrder2 369", "Error", JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+//            //calculating stocks
+//            if (reqQty > visibleStock) {
+//                reqQty -= visibleStock;
+//                visibleStock = 0;
+//                if (reqQty > invisibleStock) {
+//                    invisibleStock = 0;
+//                } else {
+//                    invisibleStock -= reqQty;
+//                }
+//            } else {
+//                visibleStock -= reqQty;
+//            }
+//            invisibleStock += parseInt(excessQty);
+//            
+//            //updating blend stock
+//            data = new String[]{String.valueOf(visibleStock), String.valueOf(invisibleStock), blendID};
+//            if (!blend.updateBlendStock(data)) {
+//                JOptionPane.showMessageDialog(rootPane, "There were some issues with the database. Please contact developers.\n\nError code : CreatNewBlendOrder2 369", "Error", JOptionPane.ERROR_MESSAGE);
+//                System.exit(0);
+//            }
         }
     }
 
@@ -370,40 +370,40 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             String ingName = model.getValueAt(i, 0).toString();
             ingName = ingName.replace("'", "\\'");
             float reqQty = (parseFloat(model.getValueAt(i, 1).toString()));
-            float visibleStock = parseFloat(model.getValueAt(i, 2).toString());
-            float invisibleStock = parseFloat(model.getValueAt(i, 3).toString());
-            String balanceQty = String.valueOf(parseFloat(model.getValueAt(i, 4).toString()));
-            String excessQty = String.valueOf(parseFloat(model.getValueAt(i, 5).toString()));
+//            float visibleStock = parseFloat(model.getValueAt(i, 2).toString());
+//            float invisibleStock = parseFloat(model.getValueAt(i, 3).toString());
+//            String balanceQty = String.valueOf(parseFloat(model.getValueAt(i, 4).toString()));
+            String excessQty = String.valueOf(parseFloat(model.getValueAt(i, 2).toString()));
 
             String ingID = ingredient.getIngIDByIngName(ingName);
 
             //placing order ingredients
-            String[] data = {orderIDLabel.getText(), ingID, String.valueOf(reqQty), String.valueOf(visibleStock), String.valueOf(invisibleStock), balanceQty, excessQty};
+            String[] data = {orderIDLabel.getText(), ingID, String.valueOf(reqQty), String.valueOf(""), String.valueOf(""), "", excessQty};
             if (!order.placeOrderIngredients(data)) {
                 JOptionPane.showMessageDialog(rootPane, "There were some issues with the database. Please contact developers.\n\nError code : CreatNewBlendOrder2 391", "Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
 
-            //calculating stocks
-            if (reqQty > visibleStock) {
-                reqQty -= visibleStock;
-                visibleStock = 0;
-                if (reqQty > invisibleStock) {
-                    invisibleStock = 0;
-                } else {
-                    invisibleStock -= reqQty;
-                }
-            } else {
-                visibleStock -= reqQty;
-            }
-            invisibleStock += parseFloat(excessQty);
-            
-            //updating ingredient stock
-            data = new String[]{String.valueOf(visibleStock), String.valueOf(invisibleStock), ingID};
-            if (!ingredient.updateIngredientStock(data)) {
-                JOptionPane.showMessageDialog(rootPane, "There were some issues with the database. Please contact developers.\n\nError code : CreatNewBlendOrder2 412", "Error", JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+//            //calculating stocks
+//            if (reqQty > visibleStock) {
+//                reqQty -= visibleStock;
+//                visibleStock = 0;
+//                if (reqQty > invisibleStock) {
+//                    invisibleStock = 0;
+//                } else {
+//                    invisibleStock -= reqQty;
+//                }
+//            } else {
+//                visibleStock -= reqQty;
+//            }
+//            invisibleStock += parseFloat(excessQty);
+//            
+//            //updating ingredient stock
+//            data = new String[]{String.valueOf(visibleStock), String.valueOf(invisibleStock), ingID};
+//            if (!ingredient.updateIngredientStock(data)) {
+//                JOptionPane.showMessageDialog(rootPane, "There were some issues with the database. Please contact developers.\n\nError code : CreatNewBlendOrder2 412", "Error", JOptionPane.ERROR_MESSAGE);
+//                System.exit(0);
+//            }
         }
     }
 
@@ -477,11 +477,11 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
 
             },
             new String [] {
-                "Ingredient", "Qty Required (g)", "Visible Stock (g)", "Invisible Stock (g)", "Balance Qty Required (g)", "Excess Qty (g)", "Final Qty (g)", "Supplier Name", "category"
+                "Ingredient", "Qty Required (g)", "Excess Qty (g)", "Final Qty (g)", "Supplier Name", "category"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false, false
+                false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -500,16 +500,11 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             masterPlanTbl.getColumnModel().getColumn(0).setPreferredWidth(200);
             masterPlanTbl.getColumnModel().getColumn(1).setResizable(false);
             masterPlanTbl.getColumnModel().getColumn(2).setResizable(false);
+            masterPlanTbl.getColumnModel().getColumn(2).setPreferredWidth(55);
             masterPlanTbl.getColumnModel().getColumn(3).setResizable(false);
-            masterPlanTbl.getColumnModel().getColumn(3).setPreferredWidth(80);
             masterPlanTbl.getColumnModel().getColumn(4).setResizable(false);
-            masterPlanTbl.getColumnModel().getColumn(4).setPreferredWidth(120);
+            masterPlanTbl.getColumnModel().getColumn(4).setPreferredWidth(230);
             masterPlanTbl.getColumnModel().getColumn(5).setResizable(false);
-            masterPlanTbl.getColumnModel().getColumn(5).setPreferredWidth(55);
-            masterPlanTbl.getColumnModel().getColumn(6).setResizable(false);
-            masterPlanTbl.getColumnModel().getColumn(7).setResizable(false);
-            masterPlanTbl.getColumnModel().getColumn(7).setPreferredWidth(230);
-            masterPlanTbl.getColumnModel().getColumn(8).setResizable(false);
         }
 
         confirmBtn.setText("Confirm");
@@ -752,11 +747,11 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
 
     private void openOrderConfirmation(){
         String orderId = orderIDLabel.getText();
-            OrderConfirmation oc = new OrderConfirmation(this, orderId);
-            oc.setVisible(true);
-            oc.pannel = this.pannel;
-            createNewBlendOrder1.dispose();
-            this.setVisible(false);
+        OrderConfirmation oc = new OrderConfirmation(this, orderId);
+        oc.setVisible(true);
+        oc.pannel = this.pannel;
+        createNewBlendOrder1.dispose();
+        this.setVisible(false);
     }
     //inner class to carry out order placement process
     class Task extends SwingWorker<Void, Void> {
@@ -784,7 +779,7 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             //Generating master plan PDF
             JTable temp = new JTable(model);
             temp.setAutoCreateRowSorter(true);
-            temp.getRowSorter().toggleSortOrder(8);
+            temp.getRowSorter().toggleSortOrder(4);
             DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
             Date today = new Date();
             String[] data = {orderIDLabel.getText(), formatter.format(today)};
@@ -793,7 +788,7 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             
             //Removing entries of 0 balance
             for (int i=0; i<model.getRowCount(); i++) {
-                if (parseFloat(model.getValueAt(i, 6).toString()) <= 0) {
+                if (parseFloat(model.getValueAt(i, 3).toString()) <= 0) {
                     model.removeRow(i);
                     i -= 1;
                 }

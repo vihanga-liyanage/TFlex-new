@@ -162,18 +162,19 @@ public class CreateNewBlendOrder1 extends javax.swing.JFrame {
     private void setExcessQty(int row){
         String blendName = blendListTbl.getValueAt(row, 0).toString();
         blendName = blendName.replace("'", "\\'");
-        int requiredQty = parseInt(blendListTbl.getValueAt(row, 4).toString());
-        if (new Validation().isInt(blendListTbl.getValueAt(row, 6).toString())) {
-            int finalQty = parseInt(blendListTbl.getValueAt(row, 6).toString());
+        int requiredQty = parseInt(blendListTbl.getValueAt(row, 1).toString());
+        if (new Validation().isInt(blendListTbl.getValueAt(row, 3).toString())) {
+            int finalQty = parseInt(blendListTbl.getValueAt(row, 3).toString());
             if (finalQty < requiredQty) {
                 JOptionPane.showMessageDialog(blendListTbl, "<html>You cannot decrease the <b>" + blendName + "</b> final quantity less than required quantity!</html>", "Error", 2);
-                blendListTbl.setValueAt(formatNum(requiredQty), row, 6);
+                blendListTbl.setValueAt(formatNum(requiredQty), row, 3);
             } else {
-                blendListTbl.setValueAt(formatNum(finalQty - requiredQty), row, 5);
+                blendListTbl.setValueAt(formatNum(finalQty - requiredQty), row, 2);
+                blendListTbl.setValueAt(formatNum(finalQty), row, 3);
             }
         } else {
             JOptionPane.showMessageDialog(blendListTbl, "<html>Please enter a valid final quantity for <b>" + blendName + "</b>.</html>", "Invalid Final Blend Quantity", 2);
-            blendListTbl.setValueAt(formatNum(requiredQty), row, 6);
+            blendListTbl.setValueAt(formatNum(requiredQty), row, 3);
         }
     }
     
@@ -314,11 +315,11 @@ public class CreateNewBlendOrder1 extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Blend Name", "Qty Required (g)", "Visible Stock (g)", "Invisible Stock (g)", "Balance Qty Required(g)", "Excess Qty (g)", "Final Qty (g)"
+                "Blend Name", "Qty Required (g)", "Excess Qty (g)", "Final Qty (g)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -341,12 +342,6 @@ public class CreateNewBlendOrder1 extends javax.swing.JFrame {
             blendListTbl.getColumnModel().getColumn(2).setPreferredWidth(180);
             blendListTbl.getColumnModel().getColumn(3).setResizable(false);
             blendListTbl.getColumnModel().getColumn(3).setPreferredWidth(180);
-            blendListTbl.getColumnModel().getColumn(4).setResizable(false);
-            blendListTbl.getColumnModel().getColumn(4).setPreferredWidth(180);
-            blendListTbl.getColumnModel().getColumn(5).setResizable(false);
-            blendListTbl.getColumnModel().getColumn(5).setPreferredWidth(180);
-            blendListTbl.getColumnModel().getColumn(6).setResizable(false);
-            blendListTbl.getColumnModel().getColumn(6).setPreferredWidth(180);
         }
 
         createOrderBtn.setText("Create Order");
@@ -541,7 +536,7 @@ public class CreateNewBlendOrder1 extends javax.swing.JFrame {
         int totalFinalQty = 0;
         for (int i=0; i<count; i++) {
             setExcessQty(i);
-            totalFinalQty += parseInt(blendListTbl.getValueAt(i, 6).toString());
+            totalFinalQty += parseInt(blendListTbl.getValueAt(i, 3).toString());
         }
         if (blendListTbl.getRowCount() > 0) {
             if (totalFinalQty > 0) {
@@ -561,6 +556,7 @@ public class CreateNewBlendOrder1 extends javax.swing.JFrame {
     }//GEN-LAST:event_createOrderBtnActionPerformed
 
     private void blendAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blendAddBtnActionPerformed
+        //Validation checks
         if (blendsCombo.getSelectedIndex() == -1){
             JOptionPane.showMessageDialog(blendsCombo, "Please select a blend to add.", "Empty Blend Selection",2);
             blendsCombo.requestFocus();
@@ -571,6 +567,8 @@ public class CreateNewBlendOrder1 extends javax.swing.JFrame {
         } else if (parseInt(blendsQtyTxt.getText()) <= 0) {
             JOptionPane.showMessageDialog(blendsQtyTxt, "Blend quantity is zero.", "Invalid Blend Quantity", 2);
             blendsQtyTxt.requestFocus();
+        
+        //If all are good...
         } else {
             String blendName = (String) blendsCombo.getSelectedItem();
             blendName = blendName.replace("'", "\\'");
@@ -582,50 +580,65 @@ public class CreateNewBlendOrder1 extends javax.swing.JFrame {
             //Search if the blend is already added
             int rowCount = blendListTbl.getRowCount();
             for (int i = 0; i < rowCount; i++) {
+                /*
+                0 - Blend name
+                1 - Qty Required
+                2 - Excess
+                3 - Final Qty
+                */
                 if (blendName.equals(blendListTbl.getValueAt(i, 0))) {
                     //calculating qty required
                     blendQty += parseInt(blendListTbl.getValueAt(i, 1).toString());
                     blendListTbl.setValueAt(formatNum(blendQty), i, 1);
-                    int visible = parseInt(blendListTbl.getValueAt(i, 2).toString());
-                    int invisible = parseInt(blendListTbl.getValueAt(i, 3).toString());
-                    int balance = 0;
-                    balance = blendQty - visible;
-                    if (balance > 0) {
-                        balance = balance - invisible;
-                    }
-                    if (balance < 0) {
-                        balance = 0;
-                    }
-                    blendListTbl.setValueAt(formatNum(balance), i, 4);
-                    int excess = parseInt(blendListTbl.getValueAt(i, 5).toString());
-                    blendListTbl.setValueAt(formatNum(excess + balance), i, 6);
+//                    int visible = parseInt(blendListTbl.getValueAt(i, 2).toString());
+//                    int invisible = parseInt(blendListTbl.getValueAt(i, 3).toString());
+//                    int balance = 0;
+//                    balance = blendQty - visible;
+//                    if (balance > 0) {
+//                        balance = balance - invisible;
+//                    }
+//                    if (balance < 0) {
+//                        balance = 0;
+//                    }
+//                    blendListTbl.setValueAt(formatNum(balance), i, 4);
+                    int excess = parseInt(blendListTbl.getValueAt(i, 2).toString());
+                    blendListTbl.setValueAt(formatNum(excess + blendQty), i, 3);
                     isNew = false;
                     break;
                 }
             }
             if (isNew) {
                 ResultArray res = blend.getBlendDataByBlendName(blendName);
+                /*
+                0-`blendID`
+                1-`blendName`
+                2-`baseID`
+                3-`visibleStock`
+                4-`alocatedStock`
+                5-`invisibleStock`
+                6-`blendCategory`
+                */
                 Vector newRow = new Vector();
                 res.next();
                 newRow.addElement(res.getString(1));
                 newRow.addElement(formatNum(blendQty));
-                newRow.addElement(formatNum(res.getString(3)));
-                newRow.addElement(formatNum(res.getString(5)));
+                
+//                newRow.addElement(formatNum(res.getString(3)));
+//                newRow.addElement(formatNum(res.getString(5)));
 
                 //calculating qty required
-                int visible = parseInt(res.getString(3));
-                int invisible = parseInt(res.getString(5));
-                int balance = 0;
-                balance = blendQty - visible;
-                if (balance > 0) {
-                    balance = balance - invisible;
-                }
-                if (balance < 0) {
-                    balance = 0;
-                }
-                newRow.addElement(formatNum(balance));
+//                int visible = parseInt(res.getString(3));
+//                int invisible = parseInt(res.getString(5));
+//                int balance = 0;
+//                balance = blendQty - visible;
+//                if (balance > 0) {
+//                    balance = balance - invisible;
+//                }
+//                if (balance < 0) {
+//                    balance = 0;
+//                }
                 newRow.addElement(0);
-                newRow.addElement(formatNum(balance));
+                newRow.addElement(formatNum(blendQty));
                 DefaultTableModel model = (DefaultTableModel) blendListTbl.getModel();
                 model.addRow(newRow);
             }

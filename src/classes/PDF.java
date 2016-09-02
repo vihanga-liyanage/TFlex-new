@@ -251,7 +251,7 @@ public class PDF {
             PdfWriter.getInstance(doc, new FileOutputStream(tempPath + "RM_Order_Master_Plan-" + data[0] + ".pdf"));
             doc.open();
 
-            float[] coloumWidths = {5, 2, 2, 2, 2, 2, 2, 5};
+            float[] coloumWidths = {5, 2, 2, 2, 5};
             PdfPTable masterTable = new PdfPTable(coloumWidths);
             masterTable.setWidthPercentage(100);
 
@@ -285,20 +285,20 @@ public class PDF {
             //Adding master table headers
             masterTable.addCell(getTableHeaderCell("Item Description"));
             masterTable.addCell(getTableHeaderCell("Qty Needed"));
-            masterTable.addCell(getTableHeaderCell("Visible Stock"));
-            masterTable.addCell(getTableHeaderCell("Invisible Stock"));
-            masterTable.addCell(getTableHeaderCell("Balance"));
+//            masterTable.addCell(getTableHeaderCell("Visible Stock"));
+//            masterTable.addCell(getTableHeaderCell("Invisible Stock"));
+//            masterTable.addCell(getTableHeaderCell("Balance"));
             masterTable.addCell(getTableHeaderCell("Excess Qty"));
             masterTable.addCell(getTableHeaderCell("Final Order"));
             masterTable.addCell(getTableHeaderCell("Supplier Name"));
 
             //Adding data from master table
-            String category = table.getValueAt(0, 8).toString();
+            String category = table.getValueAt(0, 5).toString();
             masterTable.addCell(getIngCategoryCell(category.toUpperCase()));
 
             for (int i = 0; i < table.getRowCount(); i++) {
-                if (!category.equals(table.getValueAt(i, 8).toString())) {
-                    category = table.getValueAt(i, 8).toString();
+                if (!category.equals(table.getValueAt(i, 5).toString())) {
+                    category = table.getValueAt(i, 5).toString();
                     masterTable.addCell(getIngCategoryCell(category.toUpperCase()));
                 }
                 masterTable.addCell(getTableDataCell(table.getValueAt(i, 0).toString()));
@@ -306,9 +306,9 @@ public class PDF {
                 masterTable.addCell(getTableDataCell(table.getValueAt(i, 2).toString()));
                 masterTable.addCell(getTableDataCell(table.getValueAt(i, 3).toString()));
                 masterTable.addCell(getTableDataCell(table.getValueAt(i, 4).toString()));
-                masterTable.addCell(getTableDataCell(table.getValueAt(i, 5).toString()));
-                masterTable.addCell(getTableDataCell(table.getValueAt(i, 6).toString()));
-                masterTable.addCell(getTableDataCell(table.getValueAt(i, 7).toString()));
+//                masterTable.addCell(getTableDataCell(table.getValueAt(i, 5).toString()));
+//                masterTable.addCell(getTableDataCell(table.getValueAt(i, 6).toString()));
+//                masterTable.addCell(getTableDataCell(table.getValueAt(i, 7).toString()));
             }
             doc.add(masterTable);
 

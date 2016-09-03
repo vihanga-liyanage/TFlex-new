@@ -85,6 +85,9 @@
           <Font name="Segoe UI Symbol" size="15" style="0"/>
         </Property>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Order Handling"/>
+      </AccessibilityProperties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
@@ -97,10 +100,13 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Order Handling"/>
+          </AccessibilityProperties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="    Order Handling    ">
-                <Property name="tabTitle" type="java.lang.String" value="    Order Handling    "/>
+              <JTabbedPaneConstraints tabName="   Blend Production Plan      ">
+                <Property name="tabTitle" type="java.lang.String" value="   Blend Production Plan      "/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

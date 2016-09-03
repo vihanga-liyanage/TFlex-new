@@ -522,7 +522,8 @@ public class AdminPannel extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        mainTabbedPane.addTab("    Order Handling    ", orderHandlingPanel);
+        mainTabbedPane.addTab("   Blend Production Plan      ", orderHandlingPanel);
+        orderHandlingPanel.getAccessibleContext().setAccessibleName("Order Handling");
 
         settingsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -929,6 +930,8 @@ public class AdminPannel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainTabbedPane))
         );
+
+        mainTabbedPane.getAccessibleContext().setAccessibleName("Order Handling");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

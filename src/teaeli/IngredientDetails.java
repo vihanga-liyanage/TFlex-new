@@ -297,7 +297,7 @@ public class IngredientDetails extends javax.swing.JFrame {
                             
                             if ("teaeli.AdminPannel".equals(pannel.getClass().getName())) {
                                 AdminPannel adminPannel = new AdminPannel();
-                                adminPannel.mainTabbedPane.setSelectedIndex(2);
+                                adminPannel.mainTabbedPane.setSelectedIndex(1);
                                 adminPannel.setVisible(true);
                                 AdminPannel old = (AdminPannel) pannel;
                                 old.dispose();

@@ -70,6 +70,7 @@ public class OrderDetails extends javax.swing.JFrame {
          y=(screenSize.height-frameSize.height)/4;
          setLocation(x, y);
          setResizable(false);*/
+        
         //Adding listner to prompt confirmation on window close
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -86,12 +87,19 @@ public class OrderDetails extends javax.swing.JFrame {
         blendTable.setAutoCreateRowSorter(true);
         orderDetailsTable.setAutoCreateRowSorter(true);
 
-        //Hiding the ingredient category column from the orderDetailsTable
-        orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(8)));
-
-        //Hiding visible and invisible stock colomns
-        orderDetailsTable.removeColumn(orderDetailsTable.getColumn("Visible Stock (g)"));
-        orderDetailsTable.removeColumn(orderDetailsTable.getColumn("Invisible Stock (g)"));
+        //Hiding visible, invisible, balance stocks from blend table
+        blendTable.removeColumn(blendTable.getColumn(blendTable.getColumnName(3)));
+        blendTable.removeColumn(blendTable.getColumn(blendTable.getColumnName(3)));
+        blendTable.removeColumn(blendTable.getColumn(blendTable.getColumnName(3)));
+        
+        //Hiding visible, invisible, balance stocks from ingredients table
+        orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(2)));
+        orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(2)));
+        orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(2)));
+        
+        //Hiding category from ingredients table
+        orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(5)));
+       
     }
 
     /**
@@ -112,8 +120,6 @@ public class OrderDetails extends javax.swing.JFrame {
         blendTable = new javax.swing.JTable();
         updateOrderBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
-        orderReceivedBtn = new javax.swing.JButton();
-        orderCompletedBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         orderIDLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -199,20 +205,6 @@ public class OrderDetails extends javax.swing.JFrame {
             }
         });
 
-        orderReceivedBtn.setText("Order Received");
-        orderReceivedBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderReceivedBtnActionPerformed(evt);
-            }
-        });
-
-        orderCompletedBtn.setText("Order Completed");
-        orderCompletedBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderCompletedBtnActionPerformed(evt);
-            }
-        });
-
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         orderIDLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -290,10 +282,6 @@ public class OrderDetails extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(cancelBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(orderCompletedBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(orderReceivedBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateOrderBtn))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
@@ -321,9 +309,7 @@ public class OrderDetails extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateOrderBtn)
-                    .addComponent(cancelBtn)
-                    .addComponent(orderReceivedBtn)
-                    .addComponent(orderCompletedBtn))
+                    .addComponent(cancelBtn))
                 .addContainerGap())
         );
 
@@ -375,8 +361,8 @@ public class OrderDetails extends javax.swing.JFrame {
             String str, remark = "";
 
             try {
-                str = orderDetailsTable.getValueAt(i, 6).toString();
-                remark = orderDetailsTable.getValueAt(i, 7).toString();
+                str = orderDetailsTable.getValueAt(i, 5).toString();
+                remark = orderDetailsTable.getValueAt(i, 6).toString();
             } catch (NullPointerException e) {
                 str = "0";
                 remark = "";
@@ -418,98 +404,6 @@ public class OrderDetails extends javax.swing.JFrame {
         String[] data = {orderIDLabel.getText(), formatter.format(today)};
         pdf.generateMasterPlanPDF(temp, data);
     }//GEN-LAST:event_updateOrderBtnActionPerformed
-
-    private void orderReceivedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderReceivedBtnActionPerformed
-
-        ArrayList<Ingredient> ingredientsOrdered = new ArrayList();
-
-        TableModel orderTableModel = orderDetailsTable.getModel();
-
-        for (int r = 0; r < orderDetailsTable.getRowCount(); r++) {
-
-            Ingredient ing = new Ingredient();
-
-            ing.setIngName((String) orderTableModel.getValueAt(r, 0));
-            ing.setOrderReqQty(this.parseFloat((String) orderTableModel.getValueAt(r, 1)));
-            ing.setOrderExcessQty(this.parseFloat((String) orderTableModel.getValueAt(r, 5)));
-
-            ingredientsOrdered.add(ing);
-        }
-
-        boolean updated = order.updateIngredientStock(ingredientsOrdered, orderIDLabel.getText());
-
-        int result = order.updateOrderStatus(1, orderIDLabel.getText());
-
-        if (result == 1 && updated) {
-            JOptionPane.showMessageDialog(this, "Order status changed successfully !", "Successfully Changed", 1);
-            
-            //Reloading pannel data
-            if ("teaeli.AdminPannel".equals(pannel.getClass().getName())) {
-                AdminPannel adminPannel = (AdminPannel) pannel;
-                adminPannel.populateOrderListTable();
-                adminPannel.populateIngStockTable();
-            } else if ("teaeli.ManagerPannel".equals(pannel.getClass().getName())) {
-                ManagerPannel managerPannel = (ManagerPannel) pannel;
-                managerPannel.populateOrderListTable();
-                managerPannel.populateIngStockTable();
-            }
-
-            orderCompletedBtn.setVisible(true);
-            orderReceivedBtn.setVisible(false);
-
-            //set table editing false after order recieved
-            orderDetailsTable.setEnabled(false);
-            updateOrderBtn.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "There were some issues with the database. Please contact developers.\n\nError code : OrderDetails 4334", "Error", 0);
-            System.exit(0);
-        }
-    }//GEN-LAST:event_orderReceivedBtnActionPerformed
-
-    private void orderCompletedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderCompletedBtnActionPerformed
-
-        ArrayList<Blend> blendsOrdered = new ArrayList();
-
-        TableModel orderTableModel = blendTable.getModel();
-
-        for (int r = 0; r < blendTable.getRowCount(); r++) {
-
-            Blend blend = new Blend();
-
-            blend.setBlendName((String) orderTableModel.getValueAt(r, 1));
-            blend.setOrderReqQty(this.parseInt((String) orderTableModel.getValueAt(r, 2)));
-            blend.setOrderExcessQty(this.parseInt((String) orderTableModel.getValueAt(r, 6)));
-
-            blendsOrdered.add(blend);
-        }
-
-        boolean updated = order.updateBlendStock(blendsOrdered, orderIDLabel.getText());
-
-        int result = order.updateOrderStatus(2, orderIDLabel.getText());
-
-        if (result == 1 && updated) {
-            JOptionPane.showMessageDialog(this, "Order status changed successfully!!!", "Successfully Changed", 1);
-            
-            //Reloading pannel data
-            if ("teaeli.AdminPannel".equals(pannel.getClass().getName())) {
-                AdminPannel adminPannel = (AdminPannel) pannel;
-                adminPannel.populateOrderListTable();
-                adminPannel.populateBlendStockTable();
-            } else if ("teaeli.ManagerPannel".equals(pannel.getClass().getName())) {
-                ManagerPannel managerPannel = (ManagerPannel) pannel;
-                managerPannel.populateOrderListTable();
-                managerPannel.populateBlendStockTable();
-            }
-            
-            orderCompletedBtn.setVisible(false);
-            orderReceivedBtn.setVisible(false);
-            updateOrderBtn.setVisible(false);
-
-        } else {
-            JOptionPane.showMessageDialog(this, "There were some issues with the database. Please contact developers.\n\nError code : OrderDetails 469", "Error", 0);
-            System.exit(0);
-        }
-    }//GEN-LAST:event_orderCompletedBtnActionPerformed
 
     //overiding Integer.parseInt() to accept nums with commas
     private int parseInt(String num) {
@@ -584,10 +478,8 @@ public class OrderDetails extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    public javax.swing.JButton orderCompletedBtn;
     public javax.swing.JTable orderDetailsTable;
     public javax.swing.JLabel orderIDLabel;
-    public javax.swing.JButton orderReceivedBtn;
     private javax.swing.JLabel rawMaterialLbl;
     public javax.swing.JButton updateOrderBtn;
     // End of variables declaration//GEN-END:variables

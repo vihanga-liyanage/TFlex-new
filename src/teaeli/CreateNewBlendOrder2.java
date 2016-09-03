@@ -335,7 +335,7 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             String blendID = blend.getBlendIDByBlendName(blendName);
             
             //placing order blend
-            String[] data = {orderIDLabel.getText(), blendID, String.valueOf(reqQty), String.valueOf(""), String.valueOf(""), "", excessQty};
+            String[] data = {orderIDLabel.getText(), blendID, String.valueOf(reqQty), String.valueOf(0), String.valueOf(0), "0", excessQty};
             if (!order.placeOrderBlends(data)) {
                 JOptionPane.showMessageDialog(rootPane, "There were some issues with the database. Please contact developers.\n\nError code : CreatNewBlendOrder2 348", "Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
@@ -378,7 +378,7 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             String ingID = ingredient.getIngIDByIngName(ingName);
 
             //placing order ingredients
-            String[] data = {orderIDLabel.getText(), ingID, String.valueOf(reqQty), String.valueOf(""), String.valueOf(""), "", excessQty};
+            String[] data = {orderIDLabel.getText(), ingID, String.valueOf(reqQty), String.valueOf("0"), String.valueOf("0"), "0", excessQty};
             if (!order.placeOrderIngredients(data)) {
                 JOptionPane.showMessageDialog(rootPane, "There were some issues with the database. Please contact developers.\n\nError code : CreatNewBlendOrder2 391", "Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);

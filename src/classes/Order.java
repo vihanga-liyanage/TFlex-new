@@ -126,15 +126,16 @@ public class Order {
         String query2 = "select i.ingName, s.supName, oi.requiredQty, oi.visibleStock, oi.invisibleStock, oi.balance, oi.excessQty, oi.remarks, c.categoryName from orderingredient oi inner join ingredient i on oi.ingID = i.ingID inner join supplier s on i.supID = s.supID inner join ingredientcategory c on i.ingCategoryID = c.ingCategoryID where oi.orderID = '" + orderID + "';";
         resultSet2 = dbConn.getResultArray(query2);
         while (resultSet2.next()) {
-            String req = formatNum(resultSet2.getString(2));
+            String req = resultSet2.getString(2);
+            String reqF = formatNum(req);
             String visible = formatNum(resultSet2.getString(3));
             String invisible = formatNum(resultSet2.getString(4));
             String balance = resultSet2.getString(5);
             String exes = resultSet2.getString(6);
             String balanceF = formatNum(balance);
             String exesF = formatNum(exes);
-            String finl = formatNum(Double.parseDouble(balance) + Double.parseDouble(exes) + "");
-            tModelIng.addRow(new Object[]{resultSet2.getString(0), req, visible, invisible, balanceF, exesF, finl, resultSet2.getString(1), resultSet2.getString(8), 0, resultSet2.getString(7)});
+            String finl = formatNum(Double.parseDouble(req) + Double.parseDouble(exes) + "");
+            tModelIng.addRow(new Object[]{resultSet2.getString(0), reqF, visible, invisible, balanceF, exesF, finl, resultSet2.getString(1), resultSet2.getString(8), 0, resultSet2.getString(7)});
         }
 
         temp.setOrderID(orderID);
@@ -146,7 +147,7 @@ public class Order {
         User user = new User();
         user.getIDByUsername();
         String query = "INSERT INTO `order` (`orderID` ,`placedBy` ,`orderStatus`) "
-                + "VALUES ('" + orderID + "' , '" + user.getUserID() + "', '0')";
+                + "VALUES ('" + orderID + "' , '" + user.getUserID() + "', '2')";
         return (dbConn.updateResult(query) == 1);
     }
 

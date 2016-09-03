@@ -67,10 +67,6 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="orderCompletedBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="orderReceivedBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="updateOrderBtn" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" pref="1048" max="32767" attributes="0"/>
@@ -106,8 +102,6 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="updateOrderBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="orderReceivedBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="orderCompletedBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -141,12 +135,9 @@
                   <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="11" rowCount="1">
+                  <Table columnCount="8" rowCount="1">
                     <Column editable="false" title="Ingredient" type="java.lang.Object"/>
                     <Column editable="false" title="Required Qty (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Visible Stock (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Invisible Stock (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Balance" type="java.lang.Object"/>
                     <Column editable="false" title="Excess Qty (g)" type="java.lang.Object"/>
                     <Column editable="false" title="Final Order" type="java.lang.Object"/>
                     <Column editable="false" title="Supplier" type="java.lang.Object"/>
@@ -158,21 +149,6 @@
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="200" resizable="false">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -246,33 +222,15 @@
                   <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="1">
+                  <Table columnCount="4" rowCount="1">
                     <Column editable="false" title="Blend Code" type="java.lang.Object"/>
                     <Column editable="false" title="Blend Name" type="java.lang.Object"/>
                     <Column editable="false" title="Required Qty (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Visible Stock (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Invisible Stock (g)" type="java.lang.Object"/>
-                    <Column editable="false" title="Balance" type="java.lang.Object"/>
                     <Column editable="false" title="Excess Qty (g)" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -324,28 +282,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelBtnActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="orderReceivedBtn">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Order Received"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orderReceivedBtnActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JButton" name="orderCompletedBtn">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Order Completed"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orderCompletedBtnActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>

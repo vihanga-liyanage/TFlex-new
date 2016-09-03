@@ -1470,43 +1470,33 @@ public class AdminPannel extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void searchOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchOrderBtnActionPerformed
+        //Create new orderDetails window
         OrderDetails orderDetails = new OrderDetails();
         orderDetails.setPannel(this);
         String id = "";
         try {
+            //set id and date
             id = orderSearchCombo.getSelectedItem().toString();
             Order tmp = order.viewOrder((DefaultTableModel) orderDetails.blendTable.getModel(), (DefaultTableModel) orderDetails.orderDetailsTable.getModel(), id);
             orderDetails.orderIDLabel.setText(tmp.getOrderID());
             orderDetails.dateLabel.setText(tmp.getDate());
 
-            for (int i = 0; i < orderListTable.getRowCount(); i++) {
-                if (id.equals(orderListTable.getValueAt(i, 0).toString())) {
-                    if (null != orderListTable.getValueAt(i, 1).toString()) {
-                        switch (orderListTable.getValueAt(i, 1).toString()) {
-                            case "Pending":
-                                orderDetails.orderCompletedBtn.setVisible(false);
-                                break;
-                            case "Received":
-                                orderDetails.orderReceivedBtn.setVisible(false);
-                                orderDetails.updateOrderBtn.setVisible(false);
-                                orderDetails.orderDetailsTable.setEnabled(false);
-                                break;
-                            case "Completed":
-                                orderDetails.orderCompletedBtn.setVisible(false);
-                                orderDetails.orderReceivedBtn.setVisible(false);
-                                orderDetails.updateOrderBtn.setVisible(false);
-                                orderDetails.orderDetailsTable.setEnabled(false);
-                                break;
-                        }
-                    }
-                }
-            }
+//            for (int i = 0; i < orderListTable.getRowCount(); i++) {
+//                if (id.equals(orderListTable.getValueAt(i, 0).toString())) {
+//                    if (null != orderListTable.getValueAt(i, 1).toString()) {
+//                        orderDetails.updateOrderBtn.setVisible(false);
+//                        orderDetails.orderDetailsTable.setEnabled(false);
+//                        break;
+//                    }
+//                }
+//            }
 
             orderDetails.setVisible(true);
             orderDetails.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             orderSearchCombo.setSelectedIndex(-1);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Please select a order ID!!!", "Empty Order Selection", 2);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_searchOrderBtnActionPerformed
 

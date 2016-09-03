@@ -1233,6 +1233,7 @@ public class AdminPannel extends javax.swing.JFrame {
             orderSearchCombo.setSelectedIndex(-1);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Please select a order ID!!!", "Empty Order Selection", 2);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_searchOrderBtnActionPerformed
 

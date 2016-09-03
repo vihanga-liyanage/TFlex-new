@@ -86,16 +86,6 @@ public class OrderDetails extends javax.swing.JFrame {
         //enabling sorting for tables
         blendTable.setAutoCreateRowSorter(true);
         orderDetailsTable.setAutoCreateRowSorter(true);
-
-        //Hiding visible, invisible, balance stocks from blend table
-        blendTable.removeColumn(blendTable.getColumn(blendTable.getColumnName(3)));
-        blendTable.removeColumn(blendTable.getColumn(blendTable.getColumnName(3)));
-        blendTable.removeColumn(blendTable.getColumn(blendTable.getColumnName(3)));
-        
-        //Hiding visible, invisible, balance stocks from ingredients table
-        orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(2)));
-        orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(2)));
-        orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(2)));
         
         //Hiding category from ingredients table
         orderDetailsTable.removeColumn(orderDetailsTable.getColumn(orderDetailsTable.getColumnName(5)));
@@ -139,17 +129,17 @@ public class OrderDetails extends javax.swing.JFrame {
         orderDetailsTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         orderDetailsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Ingredient", "Required Qty (g)", "Visible Stock (g)", "Invisible Stock (g)", "Balance", "Excess Qty (g)", "Final Order", "Supplier", "Category", "Additional Qty (g)", "Remarks"
+                "Ingredient", "Required Qty (g)", "Excess Qty (g)", "Final Order", "Supplier", "Category", "Additional Qty (g)", "Remarks"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -165,7 +155,7 @@ public class OrderDetails extends javax.swing.JFrame {
         if (orderDetailsTable.getColumnModel().getColumnCount() > 0) {
             orderDetailsTable.getColumnModel().getColumn(0).setResizable(false);
             orderDetailsTable.getColumnModel().getColumn(0).setPreferredWidth(200);
-            orderDetailsTable.getColumnModel().getColumn(7).setPreferredWidth(200);
+            orderDetailsTable.getColumnModel().getColumn(4).setPreferredWidth(200);
         }
 
         blendLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
@@ -174,14 +164,14 @@ public class OrderDetails extends javax.swing.JFrame {
         blendTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         blendTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Blend Code", "Blend Name", "Required Qty (g)", "Visible Stock (g)", "Invisible Stock (g)", "Balance", "Excess Qty (g)"
+                "Blend Code", "Blend Name", "Required Qty (g)", "Excess Qty (g)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -398,7 +388,7 @@ public class OrderDetails extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) orderDetailsTable.getModel();
         JTable temp = new JTable(model);
         temp.setAutoCreateRowSorter(true);
-        temp.getRowSorter().toggleSortOrder(8);
+        temp.getRowSorter().toggleSortOrder(7);
         DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         Date today = new Date();
         String[] data = {orderIDLabel.getText(), formatter.format(today)};

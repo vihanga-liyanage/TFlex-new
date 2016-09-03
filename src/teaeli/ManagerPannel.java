@@ -691,15 +691,16 @@ public class ManagerPannel extends javax.swing.JFrame {
             orderDetails.orderIDLabel.setText(tmp.getOrderID());
             orderDetails.dateLabel.setText(tmp.getDate());
 
-            for (int i = 0; i < orderListTable.getRowCount(); i++) {
-                if (id.equals(orderListTable.getValueAt(i, 0).toString())) {
-                    if (null != orderListTable.getValueAt(i, 1).toString()) {
-                        orderDetails.updateOrderBtn.setVisible(false);
-                        orderDetails.orderDetailsTable.setEnabled(false);
-                        break;
-                    }
-                }
-            }
+//            for (int i = 0; i < orderListTable.getRowCount(); i++) {
+//                if (id.equals(orderListTable.getValueAt(i, 0).toString())) {
+//                    if (null != orderListTable.getValueAt(i, 1).toString()) {
+//                        orderDetails.updateOrderBtn.setVisible(false);
+//                        orderDetails.orderDetailsTable.setEnabled(false);
+//                        break;
+//                    }
+//                }
+//            }
+
 
             orderDetails.setVisible(true);
             orderDetails.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -790,11 +790,11 @@ public class AdminPannel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "IngredientName", "Supplier", "Unit Price"
+                "IngredientName", "Supplier"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -806,7 +806,6 @@ public class AdminPannel extends javax.swing.JFrame {
         if (settingsIngredientTable.getColumnModel().getColumnCount() > 0) {
             settingsIngredientTable.getColumnModel().getColumn(0).setResizable(false);
             settingsIngredientTable.getColumnModel().getColumn(1).setResizable(false);
-            settingsIngredientTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
         searchIngredientComboBox.setEditable(true);
@@ -1660,7 +1659,7 @@ public class AdminPannel extends javax.swing.JFrame {
             itemDetails.setName(resultArray[1]); //set ingid as name
             itemDetails.itemTypeCombo.setSelectedItem(resultArray[2]);
             itemDetails.supplierCombobox.setSelectedItem(resultArray[3]);
-            itemDetails.unitPriceTxt.setText(resultArray[4]);
+            //itemDetails.unitPriceTxt.setText(resultArray[4]);
 
             itemDetails.pannel = this;
             itemDetails.setVisible(true);

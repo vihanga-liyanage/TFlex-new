@@ -365,13 +365,13 @@ public class Ingredient {
     }
 
     //start of update ingredient method
-    public int updateIngredient(int ingredientID, String ingredientName, int ingCategory, int supID, float unitPrice) throws SQLException {
+    public int updateIngredient(int ingredientID, String ingredientName, int ingCategory, int supID) throws SQLException {
         int insertOK = 0;
         
         //set name of the ingredient
         String replacedIngName = ingredientName.replace("'", "''");
         
-        String query = "Update ingredient SET ingName = '" + replacedIngName + "', ingCategoryID = '" + ingCategory + "',supID= '" + supID + "',unitPrice = '" + unitPrice + "' WHERE ingID = '" + ingredientID + "'";
+        String query = "Update ingredient SET ingName = '" + replacedIngName + "', ingCategoryID = '" + ingCategory + "',supID= '" + supID + "',unitPrice = 0 WHERE ingID = '" + ingredientID + "'";
         insertOK = dbConn.updateResult(query);
         return insertOK;
     }

@@ -46,15 +46,15 @@ public class OrderConfirmation extends javax.swing.JFrame {
         //Setting icon
         ImageIcon img = new ImageIcon("src\\img\\icon-1.png");
         this.setIconImage(img.getImage());
-        
+
         initComponents();
         setSize(1058, 580);
         Dimension screenSize, frameSize;
         int x, y;
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = getSize();
-        x = (screenSize.width - frameSize.width)/2;
-        y = (screenSize.height - frameSize.height)/2;
+        x = (screenSize.width - frameSize.width) / 2;
+        y = (screenSize.height - frameSize.height) / 2;
         setLocation(x, y);
         setResizable(false);
 
@@ -162,54 +162,58 @@ public class OrderConfirmation extends javax.swing.JFrame {
 
     }
 
-    public List<List> setUnitPriceAndTotal() {
-        mainList2 = new ArrayList<List>();
-        totalList = new ArrayList();
+    /*
+     public List<List> setUnitPriceAndTotal() {
+     mainList2 = new ArrayList<List>();
+     totalList = new ArrayList();
 
-        for (List lst : this.mainList) {
-            float fullTotal = 0;
-            List<String> unitPriceAndTotalList = new ArrayList<String>();
-            for (int i = 0; i < lst.size(); i++) {
-                if (i % 2 == 0) {
-                    float unitPrice = parseFloat(ing.getUnitPriceByIngName(lst.get(i).toString()));
-                    float qty = parseFloat(lst.get(i + 1).toString());
-                    float total = (qty / 1000) * unitPrice;
-                    unitPriceAndTotalList.add(formatNum(Float.toString(unitPrice)));
-                    unitPriceAndTotalList.add(formatNum(Float.toString(total)));
-                    fullTotal += total;
-                }
-            }
-            totalList.add(fullTotal);
-            mainList2.add(unitPriceAndTotalList);
-        }
+     for (List lst : this.mainList) {
+     float fullTotal = 0;
+     List<String> unitPriceAndTotalList = new ArrayList<String>();
+     for (int i = 0; i < lst.size(); i++) {
+     if (i % 2 == 0) {
+     float unitPrice = parseFloat(ing.getUnitPriceByIngName(lst.get(i).toString()));
+     float qty = parseFloat(lst.get(i + 1).toString());
+     float total = (qty / 1000) * unitPrice;
+     unitPriceAndTotalList.add(formatNum(Float.toString(unitPrice)));
+     unitPriceAndTotalList.add(formatNum(Float.toString(total)));
+     fullTotal += total;
+     }
+     }
+     totalList.add(fullTotal);
+     mainList2.add(unitPriceAndTotalList);
+     }
 
-        return mainList2;
-    }
+     return mainList2;
+     }
+    
+     */
+    /*
+     public List getDiscounts() {
+     discountList = new ArrayList();
+     String errorDiscount = "0";
+     for (int i = 0; i < tblMasterPlanEditingView.getRowCount(); i++) {
+     float discount = Float.parseFloat(tblMasterPlanEditingView.getValueAt(i, 1).toString());
+     if (discount < 0 || discount >= 100) {
+     errorDiscount = "1";
+     }
+     if (errorDiscount == "0") {
+     discountList.add(tblMasterPlanEditingView.getValueAt(i, 1));
+     }
+     }
+     discountList.add(errorDiscount);
+     return discountList;
+     }
 
-    public List getDiscounts() {
-        discountList = new ArrayList();
-        String errorDiscount = "0";
-        for (int i = 0; i < tblMasterPlanEditingView.getRowCount(); i++) {
-            float discount = Float.parseFloat(tblMasterPlanEditingView.getValueAt(i, 1).toString());
-            if (discount < 0 || discount >= 100) {
-                errorDiscount = "1";
-            }
-            if (errorDiscount == "0") {
-                discountList.add(tblMasterPlanEditingView.getValueAt(i, 1));
-            }
-        }
-        discountList.add(errorDiscount);
-        return discountList;
-    }
-
-    public List getTaxes() {
-        taxList = new ArrayList();
-        for (int i = 0; i < tblMasterPlanEditingView.getRowCount(); i++) {
-            taxList.add(tblMasterPlanEditingView.getValueAt(i, 2));
-        }
-        return taxList;
-    }
-
+     public List getTaxes() {
+     taxList = new ArrayList();
+     for (int i = 0; i < tblMasterPlanEditingView.getRowCount(); i++) {
+     taxList.add(tblMasterPlanEditingView.getValueAt(i, 2));
+     }
+     return taxList;
+     }
+    
+     */
     //overiding Float.parseFloat() to accept nums with commas
     private float parseFloat(String num) {
         try {
@@ -272,11 +276,11 @@ public class OrderConfirmation extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Supplier Name", "Discount", "Tax"
+                "Supplier Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -292,12 +296,6 @@ public class OrderConfirmation extends javax.swing.JFrame {
         tblMasterPlanScrollPane.setViewportView(tblMasterPlanEditingView);
         if (tblMasterPlanEditingView.getColumnModel().getColumnCount() > 0) {
             tblMasterPlanEditingView.getColumnModel().getColumn(0).setMinWidth(25);
-            tblMasterPlanEditingView.getColumnModel().getColumn(1).setMinWidth(70);
-            tblMasterPlanEditingView.getColumnModel().getColumn(1).setPreferredWidth(10);
-            tblMasterPlanEditingView.getColumnModel().getColumn(1).setMaxWidth(70);
-            tblMasterPlanEditingView.getColumnModel().getColumn(2).setMinWidth(70);
-            tblMasterPlanEditingView.getColumnModel().getColumn(2).setPreferredWidth(10);
-            tblMasterPlanEditingView.getColumnModel().getColumn(2).setMaxWidth(70);
         }
 
         supplierWiseOrderDetailsTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -305,11 +303,11 @@ public class OrderConfirmation extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Ingridient", "Quantity", "Price", "Total"
+                "Ingridient", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -324,15 +322,7 @@ public class OrderConfirmation extends javax.swing.JFrame {
         });
         tblMasterPlanScrollPane1.setViewportView(supplierWiseOrderDetailsTbl);
         if (supplierWiseOrderDetailsTbl.getColumnModel().getColumnCount() > 0) {
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(1).setMinWidth(80);
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(1).setPreferredWidth(2);
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(1).setMaxWidth(80);
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(2).setMinWidth(80);
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(2).setPreferredWidth(20);
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(2).setMaxWidth(80);
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(3).setMinWidth(80);
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(3).setPreferredWidth(20);
-            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(3).setMaxWidth(80);
+            supplierWiseOrderDetailsTbl.getColumnModel().getColumn(1).setPreferredWidth(15);
         }
 
         generatePdfBtn.setText("Generate PDF");
@@ -426,57 +416,62 @@ public class OrderConfirmation extends javax.swing.JFrame {
 
     private void generatePdfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatePdfBtnActionPerformed
         //generating pdfs
-        setUnitPriceAndTotal();
+        //setUnitPriceAndTotal();
         if (tblMasterPlanEditingView.getCellEditor() != null) {
             tblMasterPlanEditingView.getCellEditor().stopCellEditing();
         }
-        getDiscounts();
-        int lastIndex = discountList.size() - 1;
-        String errorDiscount = discountList.get(lastIndex).toString();
-        if (errorDiscount == "1") {
 
-            JOptionPane.showMessageDialog(this, "Discount cannot be greater than 100!", "Invalid Discount", 2);
-        } else {
-            getTaxes();
-            pdf = new PDF();
-            String path = pdf.generateSupplierwisePO(supplierList, mainList, mainList2, orderID, discountList, taxList, totalList);
+        /*
+         //getDiscounts();
+         int lastIndex = discountList.size() - 1;
+         String errorDiscount = discountList.get(lastIndex).toString();
+         if (errorDiscount == "1") {
 
-            if (path != null) {
-                int response = JOptionPane.showConfirmDialog(
-                        null,
-                        "Purchase orders saved successfully. Do you want to open the containing folder?",
-                        "Purchase orders",
-                        JOptionPane.YES_NO_OPTION
-                );
-                if (response == JOptionPane.YES_OPTION) {
-                    try {
-                        //Opening the new directory
-                        Desktop.getDesktop().open(new File(path));
-                    } catch (IOException ex) {
-                        System.out.println("IOException : " + ex.getMessage());
-                    }
+         JOptionPane.showMessageDialog(this, "Discount cannot be greater than 100!", "Invalid Discount", 2);
+         } else {
+         getTaxes();
+            
+
+         }
+         */
+        pdf = new PDF();
+        String path = pdf.generateSupplierwisePO(supplierList, mainList,orderID,totalList);
+
+        if (path != null) {
+            int response = JOptionPane.showConfirmDialog(
+                    null,
+                    "Purchase orders saved successfully. Do you want to open the containing folder?",
+                    "Purchase orders",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (response == JOptionPane.YES_OPTION) {
+                try {
+                    //Opening the new directory
+                    Desktop.getDesktop().open(new File(path));
+                } catch (IOException ex) {
+                    System.out.println("IOException : " + ex.getMessage());
                 }
-
-                //finishing order
-                this.createNewBlendOrder2.dispose();
-                
-                //Re-generating the admin panel since the data is changed
-                if ("teaeli.AdminPannel".equals(pannel.getClass().getName())) {
-                    AdminPannel adminPannel = new AdminPannel();
-                    adminPannel.setVisible(true);
-                    AdminPannel old = (AdminPannel) pannel;
-                    old.dispose();
-                } else if ("teaeli.ManagerPannel".equals(pannel.getClass().getName())) {
-                    ManagerPannel managerPannel = new ManagerPannel();
-                    managerPannel.setVisible(true);
-                    ManagerPannel old = (ManagerPannel) pannel;
-                    old.dispose();
-                }
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "There were some issues with the database. Please contact developers.\n\nError code : OrderConfirmation 460", "Error", 0);
-                System.exit(0);
             }
+
+            //finishing order
+            this.createNewBlendOrder2.dispose();
+
+            //Re-generating the admin panel since the data is changed
+            if ("teaeli.AdminPannel".equals(pannel.getClass().getName())) {
+                AdminPannel adminPannel = new AdminPannel();
+                adminPannel.setVisible(true);
+                AdminPannel old = (AdminPannel) pannel;
+                old.dispose();
+            } else if ("teaeli.ManagerPannel".equals(pannel.getClass().getName())) {
+                ManagerPannel managerPannel = new ManagerPannel();
+                managerPannel.setVisible(true);
+                ManagerPannel old = (ManagerPannel) pannel;
+                old.dispose();
+            }
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "There were some issues with the database. Please contact developers.\n\nError code : OrderConfirmation 460", "Error", 0);
+            System.exit(0);
         }
 
     }//GEN-LAST:event_generatePdfBtnActionPerformed

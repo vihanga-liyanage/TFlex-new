@@ -325,7 +325,7 @@ public class PDF {
             copyRight.setSpacingBefore(5);
             copyRight.addCell(companyNameAndDate("\u00a9" + "  2016 Reid Solutions All RIGHTS RESERVED"));
             doc.add(copyRight);
-                
+
             doc.close();
 
         } catch (FileNotFoundException | DocumentException ex) {
@@ -339,7 +339,7 @@ public class PDF {
         }
     }
 
-    public String generateSupplierwisePO(Set<String> supplierList, List<List> mainList, List<List> mainList2, String orderID, List discountList, List taxList, List totalList) {
+    public String generateSupplierwisePO(Set<String> supplierList, List<List> mainList, String orderID, List totalList) {
         int pdfOK = 1;
         int count = 0;
         String[] supNameArray = supplierList.toArray(new String[supplierList.size()]);
@@ -389,54 +389,55 @@ public class PDF {
                 doc.add(table2);
 
                 //po table
-                float[] coloumWidths = {7, 2, 2, 2};
+                float[] coloumWidths = {7, 2};
                 PdfPTable table = new PdfPTable(coloumWidths);
                 table.setWidthPercentage(100);
                 table.setSpacingBefore(20);
 
                 table.addCell(tableHeaderCellPO("Ingredient Name"));
-                table.addCell(tableHeaderCellPO("Unit Price (Rs)"));
+                //table.addCell(tableHeaderCellPO("Unit Price (Rs)"));
                 table.addCell(tableHeaderCellPO("Quantity (g)"));
-                table.addCell(tableHeaderCellPO("total (Rs)"));
+                //table.addCell(tableHeaderCellPO("total (Rs)"));
 
-                List lst2 = mainList2.get(count);
+                List lst2 = mainList.get(count);
                 for (int i = 0; i < lst.size(); i++) {
                     table.addCell(tableCellPO(lst.get(i).toString()));
-                    table.addCell(tableCellPO(lst2.get(i).toString()));
+
                 }
                 doc.add(table);
 
-                //discounts
-                PdfPTable discountTable = new PdfPTable(2);
-                discountTable.setWidthPercentage(100);
-                discountTable.setWidths(new int[]{11, 2});
-                discountTable.addCell(discountAndTaxexTopic("Discount (%)"));
-                discountTable.addCell(discountAndTaxexData("-   " + discountList.get(count).toString()));
-                doc.add(discountTable);
+                /*
+                 //discounts
+                 PdfPTable discountTable = new PdfPTable(2);
+                 discountTable.setWidthPercentage(100);
+                 discountTable.setWidths(new int[]{11, 2});
+                 discountTable.addCell(discountAndTaxexTopic("Discount (%)"));
+                 discountTable.addCell(discountAndTaxexData("-   " + discountList.get(count).toString()));
+                 doc.add(discountTable);
 
-                //taxes
-                PdfPTable TaxTable = new PdfPTable(2);
-                TaxTable.setWidthPercentage(100);
-                TaxTable.setWidths(new int[]{11, 2});
-                TaxTable.addCell(discountAndTaxexTopic("Tax (Rs)"));
-                TaxTable.addCell(discountAndTaxexData("+   " + taxList.get(count).toString()));
-                doc.add(TaxTable);
+                 //taxes
+                 PdfPTable TaxTable = new PdfPTable(2);
+                 TaxTable.setWidthPercentage(100);
+                 TaxTable.setWidths(new int[]{11, 2});
+                 TaxTable.addCell(discountAndTaxexTopic("Tax (Rs)"));
+                 TaxTable.addCell(discountAndTaxexData("+   " + taxList.get(count).toString()));
+                 doc.add(TaxTable);
 
-                //calculate sub total 
-                float total = Float.parseFloat(totalList.get(count).toString());
-                float discount = Float.parseFloat(discountList.get(count).toString());
-                float discountAmount = (total * discount) / 100;
-                float tax = Float.parseFloat(taxList.get(count).toString());
-                String subTotal = formatNum(total + tax - discountAmount);
+                 //calculate sub total 
+                 float total = Float.parseFloat(totalList.get(count).toString());
+                 float discount = Float.parseFloat(discountList.get(count).toString());
+                 float discountAmount = (total * discount) / 100;
+                 float tax = Float.parseFloat(taxList.get(count).toString());
+                 String subTotal = formatNum(total + tax - discountAmount);
 
-                //sub total
-                PdfPTable subTotalTable = new PdfPTable(2);
-                subTotalTable.setWidthPercentage(100);
-                subTotalTable.setWidths(new int[]{11, 2});
-                subTotalTable.addCell(discountAndTaxexTopic("Sub Total (Rs)"));
-                subTotalTable.addCell(discountAndTaxexData(subTotal));
-                doc.add(subTotalTable);
-
+                 //sub total
+                 PdfPTable subTotalTable = new PdfPTable(2);
+                 subTotalTable.setWidthPercentage(100);
+                 subTotalTable.setWidths(new int[]{11, 2});
+                 subTotalTable.addCell(discountAndTaxexTopic("Sub Total (Rs)"));
+                 subTotalTable.addCell(discountAndTaxexData(subTotal));
+                 doc.add(subTotalTable);
+                 */
                 /*
                  //dilivery charges
                  PdfPTable diliveryChargesTable = new PdfPTable(2);
@@ -445,15 +446,15 @@ public class PDF {
                  diliveryChargesTable.addCell(discountAndTaxexTopic("Dilivery Charges"));
                  diliveryChargesTable.addCell(discountAndTaxexData("+   " + "ADD"));
                  doc.add(diliveryChargesTable);
+                 
+                 //total
+                 PdfPTable totalTable = new PdfPTable(2);
+                 totalTable.setWidthPercentage(100);
+                 totalTable.setWidths(new int[]{11, 2});
+                 totalTable.addCell(discountAndTaxexTopic("Total (Rs)"));
+                 totalTable.addCell(discountAndTaxexData(subTotal));
+                 doc.add(totalTable);
                  */
-                //total
-                PdfPTable totalTable = new PdfPTable(2);
-                totalTable.setWidthPercentage(100);
-                totalTable.setWidths(new int[]{11, 2});
-                totalTable.addCell(discountAndTaxexTopic("Total (Rs)"));
-                totalTable.addCell(discountAndTaxexData(subTotal));
-                doc.add(totalTable);
-
                 //company name and date
                 PdfPTable companyNameAndDate = new PdfPTable(2);
                 companyNameAndDate.setWidthPercentage(100);
@@ -550,7 +551,7 @@ public class PDF {
             doc.add(masterTable);
 
             doc.close();
-           
+
             int response = JOptionPane.showConfirmDialog(
                     null,
                     "PDF generated successfully. Would you like to open the containing folder?",
@@ -565,7 +566,7 @@ public class PDF {
                     logger.log(Level.WARNING, ex.getMessage());
                 }
             }
-            
+
         } catch (FileNotFoundException | DocumentException ex) {
             logger.log(Level.WARNING, ex.getMessage());
             JOptionPane.showMessageDialog(null, "There were some issues with the database. Please contact developers.\n\nError code : PDF 540", "Error", 0);
@@ -651,7 +652,7 @@ public class PDF {
                     logger.log(Level.WARNING, ex.getMessage());
                 }
             }
-            
+
         } catch (FileNotFoundException | DocumentException ex) {
             logger.log(Level.WARNING, ex.getMessage());
             JOptionPane.showMessageDialog(null, "There were some issues with the database. Please contact developers.\n\nError code : PDF 611", "Error", 0);

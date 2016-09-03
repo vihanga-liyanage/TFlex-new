@@ -701,6 +701,7 @@ public class ManagerPannel extends javax.swing.JFrame {
 //                }
 //            }
 
+
             orderDetails.setVisible(true);
             orderDetails.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             orderSearchCombo.setSelectedIndex(-1);

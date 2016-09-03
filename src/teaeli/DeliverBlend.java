@@ -126,7 +126,7 @@ public class DeliverBlend extends javax.swing.JFrame {
         this.setVisible(false);
         if ("teaeli.AdminPannel".equals(pannel.getClass().getName())) {
             AdminPannel adminPannel = (AdminPannel) pannel;
-            adminPannel.populateBlendStockTable();
+//            adminPannel.populateBlendStockTable();
 //            adminPannel.populateBlendHistoryTable();
         } else if ("teaeli.ManagerPannel".equals(pannel.getClass().getName())) {
             ManagerPannel managerPannel = (ManagerPannel) pannel;

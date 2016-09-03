@@ -34,7 +34,7 @@ public class AddIngredient extends javax.swing.JFrame {
         //Setting icon
         ImageIcon img = new ImageIcon("src\\img\\icon-1.png");
         this.setIconImage(img.getImage());
-        
+
         //Add windows look and feel
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -47,8 +47,8 @@ public class AddIngredient extends javax.swing.JFrame {
         int x, y;
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = getSize();
-        x = (screenSize.width - frameSize.width)/2;
-        y = (screenSize.height - frameSize.height)/2;
+        x = (screenSize.width - frameSize.width) / 2;
+        y = (screenSize.height - frameSize.height) / 2;
         setLocation(x, y);
         setResizable(false);
 
@@ -226,15 +226,13 @@ public class AddIngredient extends javax.swing.JFrame {
         name = txtName.getText();
         type = itemTypeCombo.getSelectedItem().toString();
         supname = supliercombo.getSelectedItem().toString();
-        
+
         if (name.isEmpty() || supname.isEmpty()) {
 
             JOptionPane.showMessageDialog(this, "Every field must be filled.", "Empty fields", 2);
 
         } else {
-            
-            
-            
+
 //            try {
 //                price = Float.parseFloat(unitPriceString);
 //            
@@ -250,30 +248,27 @@ public class AddIngredient extends javax.swing.JFrame {
 //                txtPrice.requestFocusInWindow();
 //                txtPrice.setText("");
 //            }
-
            // if (unitPriceOK == 1) {
-                //price = Float.parseFloat(txtPrice.getText());
-                
-                int result = ingr.addNewIngredient(name, type, supname);
-                
-                if (result == 1) {
-                    JOptionPane.showMessageDialog(this, "Ingredient successfully added", "Succeeded", 1);
-                    this.setVisible(false);
-                    AutoSuggest searchIngredientComboBoxAutoSuggest = new AutoSuggest();
-                    searchIngredientComboBoxAutoSuggest.setAutoSuggest(adminPannel.searchIngredientComboBox, ingr.loadNameForSearchStockIngComboBox());
-                    adminPannel.populateSettingsIngredientTable();
-                    AutoSuggest searchStockIngComboBoxAutoSuggest = new AutoSuggest();
-                    searchStockIngComboBoxAutoSuggest.setAutoSuggest(adminPannel.searchStockIngComboBox, ingr.loadNameForSearchStockIngComboBox());
-                    adminPannel.populateIngStockTable();
-                    this.dispose();
+            //price = Float.parseFloat(txtPrice.getText());
+            int result = ingr.addNewIngredient(name, type, supname);
 
-                } else {
-                    JOptionPane.showMessageDialog(this, "There were some issues with the database. Please contact developers.\n\nError code : AddIngredient 274", "Error", 0);
-                    System.exit(0);
-                }
+            if (result == 1) {
+                JOptionPane.showMessageDialog(this, "Ingredient successfully added", "Succeeded", 1);
+                this.setVisible(false);
+                AutoSuggest searchIngredientComboBoxAutoSuggest = new AutoSuggest();
+                searchIngredientComboBoxAutoSuggest.setAutoSuggest(adminPannel.searchIngredientComboBox, ingr.loadNameForSearchStockIngComboBox());
+                adminPannel.populateSettingsIngredientTable();
+                AutoSuggest searchStockIngComboBoxAutoSuggest = new AutoSuggest();
+//                    searchStockIngComboBoxAutoSuggest.setAutoSuggest(adminPannel.searchStockIngComboBox, ingr.loadNameForSearchStockIngComboBox());
+//                adminPannel.populateIngStockTable();
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "There were some issues with the database. Please contact developers.\n\nError code : AddIngredient 274", "Error", 0);
+                System.exit(0);
+            }
 
            // }
-
         }
     }//GEN-LAST:event_addBtnActionPerformed
 

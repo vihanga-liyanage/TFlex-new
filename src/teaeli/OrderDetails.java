@@ -378,7 +378,7 @@ public class OrderDetails extends javax.swing.JFrame {
         
         if ("teaeli.AdminPannel".equals(pannel.getClass().getName())) {
             AdminPannel adminPannel = (AdminPannel) pannel;
-            adminPannel.populateIngStockTable();
+//            adminPannel.populateIngStockTable();
         } else if ("teaeli.ManagerPannel".equals(pannel.getClass().getName())) {
             ManagerPannel managerPannel = (ManagerPannel) pannel;
             managerPannel.populateIngStockTable();

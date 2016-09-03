@@ -76,8 +76,8 @@ public class AdminPannel extends javax.swing.JFrame {
 
         //Changing table headers to bold
         orderListTable.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-        inventryIngredientTable.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-        inventryBlendTable.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+//        inventryIngredientTable.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+//        inventryBlendTable.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
         settingsIngredientTable.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
         productTable.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
         blendDetailsTbl.getTableHeader().setFont(new Font("Segoe UI Bold", Font.PLAIN, 14));
@@ -105,10 +105,10 @@ public class AdminPannel extends javax.swing.JFrame {
         //end of view all ingredients
 
         /* populate inventryIngredientTable in inventory management*/
-        populateIngStockTable();
+//        populateIngStockTable();
 
         /*populate inventryBlendTable in the inventory management*/
-        populateBlendStockTable();
+//        populateBlendStockTable();
 
 //        /*Populate ingredientstock history*/
 //        populateIngHistoryTable();
@@ -128,44 +128,44 @@ public class AdminPannel extends javax.swing.JFrame {
 
         orderSearchCombo.setSelectedIndex(-1);
 
-        /* combox auto suggests in inventory management */
-        AutoSuggest searchStockIngComboBoxAutoSuggest = new AutoSuggest();
-        searchStockIngComboBoxAutoSuggest.setAutoSuggest(searchStockIngComboBox, ingredient.loadNameForSearchStockIngComboBox());
+//        /* combox auto suggests in inventory management */
+//        AutoSuggest searchStockIngComboBoxAutoSuggest = new AutoSuggest();
+//        searchStockIngComboBoxAutoSuggest.setAutoSuggest(searchStockIngComboBox, ingredient.loadNameForSearchStockIngComboBox());
 
-        searchStockIngComboBox.setSelectedIndex(-1);
+//        searchStockIngComboBox.setSelectedIndex(-1);
 
-        initStockBlendCombo();
+//        initStockBlendCombo();
 
         /*Auto suggest method loads for the combo box in blends tab*/
         initSettingsBlendCombo();
 
         //method for combox value setting when table row select in inventryIngredient
-        final ListSelectionModel selectionalModForStockIngTable = inventryIngredientTable.getSelectionModel();
-        selectionalModForStockIngTable.addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent lsevt) {
-                if (!selectionalModForStockIngTable.isSelectionEmpty()) {
-                    int row = selectionalModForStockIngTable.getMinSelectionIndex();
-                    searchStockIngComboBox.setSelectedItem(inventryIngredientTable.getValueAt(row, 1));
-                }
-            }
-
-        });
+//        final ListSelectionModel selectionalModForStockIngTable = inventryIngredientTable.getSelectionModel();
+//        selectionalModForStockIngTable.addListSelectionListener(new ListSelectionListener() {
+//
+//            @Override
+//            public void valueChanged(ListSelectionEvent lsevt) {
+//                if (!selectionalModForStockIngTable.isSelectionEmpty()) {
+//                    int row = selectionalModForStockIngTable.getMinSelectionIndex();
+//                    searchStockIngComboBox.setSelectedItem(inventryIngredientTable.getValueAt(row, 1));
+//                }
+//            }
+//
+//        });
 
         //methods for combox value settings when table row select in inventryBlend
-        final ListSelectionModel selectionalModForStockBlendTable = inventryBlendTable.getSelectionModel();
-        selectionalModForStockBlendTable.addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent lsevt) {
-                if (!selectionalModForStockBlendTable.isSelectionEmpty()) {
-                    int row = selectionalModForStockBlendTable.getMinSelectionIndex();
-                    searchStockBlendComboBox.setSelectedItem(inventryBlendTable.getValueAt(row, 1));
-                }
-            }
-
-        });
+//        final ListSelectionModel selectionalModForStockBlendTable = inventryBlendTable.getSelectionModel();
+//        selectionalModForStockBlendTable.addListSelectionListener(new ListSelectionListener() {
+//
+//            @Override
+//            public void valueChanged(ListSelectionEvent lsevt) {
+//                if (!selectionalModForStockBlendTable.isSelectionEmpty()) {
+//                    int row = selectionalModForStockBlendTable.getMinSelectionIndex();
+//                    searchStockBlendComboBox.setSelectedItem(inventryBlendTable.getValueAt(row, 1));
+//                }
+//            }
+//
+//        });
 
         //method for combox value setting when table row select in settings Ingredient
         final ListSelectionModel selectionalModForSettingsIngTable = settingsIngredientTable.getSelectionModel();
@@ -211,24 +211,24 @@ public class AdminPannel extends javax.swing.JFrame {
         });
 
         //method for enter key pressed in ingredient
-        searchStockIngComboBox.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent evt) {
-                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                    searchStockIngredientCombo();
-                }
-            }
-        });
+//        searchStockIngComboBox.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyPressed(KeyEvent evt) {
+//                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+//                    searchStockIngredientCombo();
+//                }
+//            }
+//        });
 
         //method for enter key pressed in blend
-        searchStockBlendComboBox.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent evt) {
-                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                    searchStockBlendCombo();
-                }
-            }
-        });
+//        searchStockBlendComboBox.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyPressed(KeyEvent evt) {
+//                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+//                    searchStockBlendCombo();
+//                }
+//            }
+//        });
 
         //method for enter key pressed in ingredient in settings tab
         searchIngredientComboBox.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
@@ -251,8 +251,8 @@ public class AdminPannel extends javax.swing.JFrame {
 
         //enabling sorting for tables
         orderListTable.setAutoCreateRowSorter(true);
-        inventryIngredientTable.setAutoCreateRowSorter(true);
-        inventryBlendTable.setAutoCreateRowSorter(true);
+//        inventryIngredientTable.setAutoCreateRowSorter(true);
+//        inventryBlendTable.setAutoCreateRowSorter(true);
         settingsIngredientTable.setAutoCreateRowSorter(true);
         productTable.setAutoCreateRowSorter(true);
         blendDetailsTbl.setAutoCreateRowSorter(true);
@@ -265,14 +265,14 @@ public class AdminPannel extends javax.swing.JFrame {
     public void setGreetings(String greeting) {
         greetingsLbl.setText(greeting);
     }
-
-    public void populateIngStockTable() {
-        ingredient.populateIngredientTable((DefaultTableModel) inventryIngredientTable.getModel());
-    }
-
-    public void populateBlendStockTable() {
-        blend.populateBlendTable((DefaultTableModel) inventryBlendTable.getModel());
-    }
+//
+//    public void populateIngStockTable() {
+//        ingredient.populateIngredientTable((DefaultTableModel) inventryIngredientTable.getModel());
+//    }
+//
+//    public void populateBlendStockTable() {
+//        blend.populateBlendTable((DefaultTableModel) inventryBlendTable.getModel());
+//    }
 
 //    public void populateIngHistoryTable() {
 //        ingredientHistoryStock.populateStockIngredientHistoryTable((DefaultTableModel) ingStockHistoryTbl.getModel());
@@ -304,11 +304,11 @@ public class AdminPannel extends javax.swing.JFrame {
         searchBlendComboBox.setSelectedIndex(-1);
     }
 
-    public void initStockBlendCombo() {
-        AutoSuggest searchStockBlendComboBoxAutoSuggest = new AutoSuggest();
-        searchStockBlendComboBoxAutoSuggest.setAutoSuggest(searchStockBlendComboBox, blend.loadNameForSearchStockBlendsComboBox());
-        searchStockBlendComboBox.setSelectedIndex(-1);
-    }
+//    public void initStockBlendCombo() {
+//        AutoSuggest searchStockBlendComboBoxAutoSuggest = new AutoSuggest();
+//        searchStockBlendComboBoxAutoSuggest.setAutoSuggest(searchStockBlendComboBox, blend.loadNameForSearchStockBlendsComboBox());
+//        searchStockBlendComboBox.setSelectedIndex(-1);
+//    }
 
     //Setting default font
     public static void setUIFont(javax.swing.plaf.FontUIResource f) {
@@ -357,23 +357,6 @@ public class AdminPannel extends javax.swing.JFrame {
         searchOrderBtn = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         orderSearchCombo = new javax.swing.JComboBox();
-        inventoryPanel = new javax.swing.JPanel();
-        inventoryManagementSplitPane = new javax.swing.JSplitPane();
-        inventoryManagementIngredientPanel = new javax.swing.JPanel();
-        inventoryIngredientsLbl = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        searchStockIngBtn = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        inventryIngredientTable = new javax.swing.JTable();
-        searchStockIngComboBox = new javax.swing.JComboBox();
-        inventoryManagementBlendPanel = new javax.swing.JPanel();
-        inventoryBlendLbl = new javax.swing.JLabel();
-        searchStockBlendsBtn = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        inventryBlendTable = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        searchStockBlendComboBox = new javax.swing.JComboBox();
-        blendDeliveryBtn = new javax.swing.JButton();
         settingsPanel = new javax.swing.JPanel();
         settingsTabbedPane = new javax.swing.JTabbedPane();
         settingsIngPanel = new javax.swing.JPanel();
@@ -540,204 +523,6 @@ public class AdminPannel extends javax.swing.JFrame {
         );
 
         mainTabbedPane.addTab("    Order Handling    ", orderHandlingPanel);
-
-        inventoryPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        inventoryManagementSplitPane.setBorder(null);
-        inventoryManagementSplitPane.setDividerLocation(650);
-        inventoryManagementSplitPane.setDividerSize(0);
-        inventoryManagementSplitPane.setResizeWeight(0.5);
-
-        inventoryManagementIngredientPanel.setBackground(new java.awt.Color(255, 255, 255));
-        inventoryManagementIngredientPanel.setPreferredSize(new java.awt.Dimension(715, 498));
-
-        inventoryIngredientsLbl.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
-        inventoryIngredientsLbl.setText("Ingredients");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Start typing ingredient name to update stock");
-
-        searchStockIngBtn.setText("Go");
-        searchStockIngBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchStockIngBtnActionPerformed(evt);
-            }
-        });
-
-        inventryIngredientTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Cateogry", "Ingredient Name", "Visible Stock (g)", "Invisible Stock (g)"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        inventryIngredientTable.setRowHeight(24);
-        jScrollPane6.setViewportView(inventryIngredientTable);
-        if (inventryIngredientTable.getColumnModel().getColumnCount() > 0) {
-            inventryIngredientTable.getColumnModel().getColumn(1).setResizable(false);
-            inventryIngredientTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-        }
-
-        searchStockIngComboBox.setEditable(true);
-        searchStockIngComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchStockIngComboBoxActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout inventoryManagementIngredientPanelLayout = new javax.swing.GroupLayout(inventoryManagementIngredientPanel);
-        inventoryManagementIngredientPanel.setLayout(inventoryManagementIngredientPanelLayout);
-        inventoryManagementIngredientPanelLayout.setHorizontalGroup(
-            inventoryManagementIngredientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inventoryManagementIngredientPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(inventoryManagementIngredientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
-                    .addGroup(inventoryManagementIngredientPanelLayout.createSequentialGroup()
-                        .addGroup(inventoryManagementIngredientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inventoryIngredientsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addGroup(inventoryManagementIngredientPanelLayout.createSequentialGroup()
-                                .addComponent(searchStockIngComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchStockIngBtn)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        inventoryManagementIngredientPanelLayout.setVerticalGroup(
-            inventoryManagementIngredientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inventoryManagementIngredientPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(inventoryIngredientsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addGroup(inventoryManagementIngredientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchStockIngBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchStockIngComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
-        );
-
-        inventoryManagementSplitPane.setLeftComponent(inventoryManagementIngredientPanel);
-
-        inventoryManagementBlendPanel.setBackground(new java.awt.Color(255, 255, 255));
-        inventoryManagementBlendPanel.setPreferredSize(new java.awt.Dimension(615, 498));
-
-        inventoryBlendLbl.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
-        inventoryBlendLbl.setText("Blends");
-
-        searchStockBlendsBtn.setText("Go");
-        searchStockBlendsBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchStockBlendsBtnActionPerformed(evt);
-            }
-        });
-
-        inventryBlendTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Blend Category", "Blend Name", "Buffer Stock (g)", "Invisible Stock (g)"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        inventryBlendTable.setRowHeight(24);
-        jScrollPane2.setViewportView(inventryBlendTable);
-        if (inventryBlendTable.getColumnModel().getColumnCount() > 0) {
-            inventryBlendTable.getColumnModel().getColumn(1).setResizable(false);
-            inventryBlendTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-            inventryBlendTable.getColumnModel().getColumn(2).setResizable(false);
-        }
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("Start typing blend name to update stock");
-
-        searchStockBlendComboBox.setEditable(true);
-        searchStockBlendComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchStockBlendComboBoxActionPerformed(evt);
-            }
-        });
-
-        blendDeliveryBtn.setText("Deliver Blend");
-        blendDeliveryBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                blendDeliveryBtnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout inventoryManagementBlendPanelLayout = new javax.swing.GroupLayout(inventoryManagementBlendPanel);
-        inventoryManagementBlendPanel.setLayout(inventoryManagementBlendPanelLayout);
-        inventoryManagementBlendPanelLayout.setHorizontalGroup(
-            inventoryManagementBlendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inventoryManagementBlendPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(inventoryManagementBlendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
-                    .addGroup(inventoryManagementBlendPanelLayout.createSequentialGroup()
-                        .addGroup(inventoryManagementBlendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(inventoryManagementBlendPanelLayout.createSequentialGroup()
-                                .addComponent(searchStockBlendComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchStockBlendsBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(blendDeliveryBtn))
-                            .addComponent(inventoryBlendLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        inventoryManagementBlendPanelLayout.setVerticalGroup(
-            inventoryManagementBlendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inventoryManagementBlendPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(inventoryBlendLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addGroup(inventoryManagementBlendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchStockBlendsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchStockBlendComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(blendDeliveryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
-        );
-
-        inventoryManagementSplitPane.setRightComponent(inventoryManagementBlendPanel);
-
-        javax.swing.GroupLayout inventoryPanelLayout = new javax.swing.GroupLayout(inventoryPanel);
-        inventoryPanel.setLayout(inventoryPanelLayout);
-        inventoryPanelLayout.setHorizontalGroup(
-            inventoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventoryPanelLayout.createSequentialGroup()
-                .addComponent(inventoryManagementSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1265, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        inventoryPanelLayout.setVerticalGroup(
-            inventoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventoryPanelLayout.createSequentialGroup()
-                .addComponent(inventoryManagementSplitPane)
-                .addContainerGap())
-        );
-
-        mainTabbedPane.addTab("    Inventory Management    ", inventoryPanel);
 
         settingsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1237,14 +1022,6 @@ public class AdminPannel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchOrderBtnActionPerformed
 
-    private void searchStockIngBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchStockIngBtnActionPerformed
-        searchStockIngredientCombo();
-    }//GEN-LAST:event_searchStockIngBtnActionPerformed
-
-    private void searchStockBlendsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchStockBlendsBtnActionPerformed
-        searchStockBlendCombo();
-    }//GEN-LAST:event_searchStockBlendsBtnActionPerformed
-
     private void deleteUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtnActionPerformed
         DefaultTableModel model = (DefaultTableModel) userTable.getModel();
         if (userTable.getSelectedRow() == -1) {
@@ -1277,101 +1054,68 @@ public class AdminPannel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteUserBtnActionPerformed
 
-    private void blendDeliveryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blendDeliveryBtnActionPerformed
-
-        int selectedIndex = searchStockBlendComboBox.getSelectedIndex();
-
-        if (selectedIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an ingredient name!!!", "Empty Ingredient Selection", 2);
-        } else {
-
-            String selectedIngName = (String) searchStockBlendComboBox.getSelectedItem();
-
-            Blend blendDelivery = new Blend();
-
-            if (blendDelivery.checkAndLoadBlendDeliverDetails(selectedIngName.replace("'", "\\'"))) {
-
-                searchStockBlendComboBox.setSelectedIndex(-1);
-
-                DeliverBlend deliverBlend = new DeliverBlend();
-
-                deliverBlend.setPannel(this);
-                deliverBlend.setVisible(true);
-                deliverBlend.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-                deliverBlend.blendNameLbl.setText(blendDelivery.getBlendName());
-                deliverBlend.blendCatgLbl.setText(blendDelivery.getBlendCategory());
-                deliverBlend.allocatedQtyLbl.setText(String.valueOf(blendDelivery.getAlocatedStock()) + " g");
-                deliverBlend.freeQtyLbl.setText(String.valueOf(blendDelivery.getVisibleStock()) + " g");
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Please select a valid blend name!!!", "Invalid Blend Name", 2);
-                searchStockBlendComboBox.setSelectedIndex(-1);
-            }
-        }
-    }//GEN-LAST:event_blendDeliveryBtnActionPerformed
-
     /* start of searchStockIngredientCombo method */
-    private void searchStockIngredientCombo() {
-
-        int selectedIndex = searchStockIngComboBox.getSelectedIndex();
-
-        if (selectedIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an ingredient!!!", "Empty Ingredient Selection", 2);
-        } else {
-
-            String selectedIngName = (String) searchStockIngComboBox.getSelectedItem();
-
-            Ingredient ingredeintForStock = new Ingredient();
-
-            if (ingredeintForStock.checkAndLoadIngredientStockDetails(selectedIngName.replace("'", "\\'"))) {
-                searchStockIngComboBox.setSelectedIndex(-1);
-
-                UpdateIngStock updateStock = new UpdateIngStock();
-
-                updateStock.setPannel(this);
-                updateStock.setVisible(true);
-                updateStock.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                updateStock.updateStockItemNameLbl.setText(ingredeintForStock.getIngName());
-                updateStock.updateStockCategoryLbl.setText(ingredeintForStock.getIngCategoryName());
-                updateStock.stockQtyLbl.setText(String.valueOf(ingredeintForStock.getVisibleStock()) + " g");
-            } else {
-                JOptionPane.showMessageDialog(this, "Plese Select a valid ingredient!!!", "Invalid Ingredient Name", 2);
-                searchStockIngComboBox.setSelectedIndex(-1);
-            }
-        }
-    }
+//    private void searchStockIngredientCombo() {
+//
+//        int selectedIndex = searchStockIngComboBox.getSelectedIndex();
+//
+//        if (selectedIndex == -1) {
+//            JOptionPane.showMessageDialog(this, "Please select an ingredient!!!", "Empty Ingredient Selection", 2);
+//        } else {
+//
+//            String selectedIngName = (String) searchStockIngComboBox.getSelectedItem();
+//
+//            Ingredient ingredeintForStock = new Ingredient();
+//
+//            if (ingredeintForStock.checkAndLoadIngredientStockDetails(selectedIngName.replace("'", "\\'"))) {
+////                searchStockIngComboBox.setSelectedIndex(-1);
+//
+//                UpdateIngStock updateStock = new UpdateIngStock();
+//
+//                updateStock.setPannel(this);
+//                updateStock.setVisible(true);
+//                updateStock.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                updateStock.updateStockItemNameLbl.setText(ingredeintForStock.getIngName());
+//                updateStock.updateStockCategoryLbl.setText(ingredeintForStock.getIngCategoryName());
+//                updateStock.stockQtyLbl.setText(String.valueOf(ingredeintForStock.getVisibleStock()) + " g");
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Plese Select a valid ingredient!!!", "Invalid Ingredient Name", 2);
+////                searchStockIngComboBox.setSelectedIndex(-1);
+//            }
+//        }
+//    }
     /* end of searchStockIngredientCombo method */
 
     /* start of searchStockBlendCombo method */
-    private void searchStockBlendCombo() {
-
-        int selectedIndex = searchStockBlendComboBox.getSelectedIndex();
-
-        if (selectedIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a blend!!!", "Empty Blend Selection", 2);
-        } else {
-
-            Blend blendForStock = new Blend();
-
-            String selectedBlendName = (String) searchStockBlendComboBox.getSelectedItem();
-
-            if (blendForStock.checkAndLoadBlendStockDetails(selectedBlendName.replace("'", "\\'"))) {
-                searchStockBlendComboBox.setSelectedIndex(-1);
-
-                UpdateBlendStock updateBlendStock = new UpdateBlendStock();
-
-                updateBlendStock.setPannel(this);
-                updateBlendStock.setVisible(true);
-                updateBlendStock.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                updateBlendStock.updateStockItemNameLbl.setText(blendForStock.getBlendName());
-                updateBlendStock.updateStockItemCategoryLbl.setText(blendForStock.getBlendCategory());
-                updateBlendStock.stockQtyLbl.setText(String.valueOf(blendForStock.getVisibleStock()) + " g");
-            } else {
-                JOptionPane.showMessageDialog(this, "Please select a valid blend!!!", "Invalid Blend Name", 2);
-                searchStockBlendComboBox.setSelectedIndex(-1);
-            }
-        }
-    }
+//    private void searchStockBlendCombo() {
+//
+//        int selectedIndex = searchStockBlendComboBox.getSelectedIndex();
+//
+//        if (selectedIndex == -1) {
+//            JOptionPane.showMessageDialog(this, "Please select a blend!!!", "Empty Blend Selection", 2);
+//        } else {
+//
+//            Blend blendForStock = new Blend();
+//
+//            String selectedBlendName = (String) searchStockBlendComboBox.getSelectedItem();
+//
+//            if (blendForStock.checkAndLoadBlendStockDetails(selectedBlendName.replace("'", "\\'"))) {
+//                searchStockBlendComboBox.setSelectedIndex(-1);
+//
+//                UpdateBlendStock updateBlendStock = new UpdateBlendStock();
+//
+//                updateBlendStock.setPannel(this);
+//                updateBlendStock.setVisible(true);
+//                updateBlendStock.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                updateBlendStock.updateStockItemNameLbl.setText(blendForStock.getBlendName());
+//                updateBlendStock.updateStockItemCategoryLbl.setText(blendForStock.getBlendCategory());
+//                updateBlendStock.stockQtyLbl.setText(String.valueOf(blendForStock.getVisibleStock()) + " g");
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Please select a valid blend!!!", "Invalid Blend Name", 2);
+//                searchStockBlendComboBox.setSelectedIndex(-1);
+//            }
+//        }
+//    }
     /* end of searchStockBlendCombo method */
 
     /* start of searchIngredientCombo method */
@@ -1462,17 +1206,9 @@ public class AdminPannel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_orderSearchComboActionPerformed
 
-    private void searchStockBlendComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchStockBlendComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchStockBlendComboBoxActionPerformed
-
     private void searchIngredientComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchIngredientComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchIngredientComboBoxActionPerformed
-
-    private void searchStockIngComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchStockIngComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchStockIngComboBoxActionPerformed
 
     private void searchBlendComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBlendComboBoxActionPerformed
         // TODO add your handling code here:
@@ -1552,20 +1288,11 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JButton addUserBtn;
     private javax.swing.JLabel blendBaseLbl;
     private javax.swing.JLabel blendCatgLbl;
-    private javax.swing.JButton blendDeliveryBtn;
     private javax.swing.JTable blendDetailsTbl;
     private javax.swing.JLabel blendNameLbl;
     private javax.swing.JButton deleteUserBtn;
     private javax.swing.JLabel greetingsLbl;
-    private javax.swing.JLabel inventoryBlendLbl;
     private javax.swing.JLabel inventoryBlendLbl1;
-    private javax.swing.JLabel inventoryIngredientsLbl;
-    private javax.swing.JPanel inventoryManagementBlendPanel;
-    private javax.swing.JPanel inventoryManagementIngredientPanel;
-    private javax.swing.JSplitPane inventoryManagementSplitPane;
-    private javax.swing.JPanel inventoryPanel;
-    private javax.swing.JTable inventryBlendTable;
-    private javax.swing.JTable inventryIngredientTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1573,14 +1300,10 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JButton logoutBtn;
@@ -1595,10 +1318,6 @@ public class AdminPannel extends javax.swing.JFrame {
     public javax.swing.JComboBox searchIngredientComboBox;
     private javax.swing.JButton searchOrderBtn;
     private javax.swing.JButton searchProductBtn;
-    private javax.swing.JComboBox searchStockBlendComboBox;
-    private javax.swing.JButton searchStockBlendsBtn;
-    private javax.swing.JButton searchStockIngBtn;
-    public javax.swing.JComboBox searchStockIngComboBox;
     private javax.swing.JPanel settingsBlendPanel;
     private javax.swing.JPanel settingsIngPanel;
     public static javax.swing.JTable settingsIngredientTable;

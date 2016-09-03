@@ -183,8 +183,8 @@ public class AddNewBlend extends javax.swing.JFrame {
     private void close() {
         adminpanel.initSettingsBlendCombo();
         adminpanel.populateProductTable();
-        adminpanel.initStockBlendCombo();
-        adminpanel.populateBlendStockTable();
+//        adminpanel.initStockBlendCombo();
+//        adminpanel.populateBlendStockTable();
         this.setVisible(false);
         this.dispose();
     }

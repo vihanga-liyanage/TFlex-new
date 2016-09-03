@@ -357,6 +357,7 @@ public class AdminPannel extends javax.swing.JFrame {
         searchOrderBtn = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         orderSearchCombo = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
         settingsPanel = new javax.swing.JPanel();
         settingsTabbedPane = new javax.swing.JTabbedPane();
         settingsIngPanel = new javax.swing.JPanel();
@@ -479,6 +480,14 @@ public class AdminPannel extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setText("Delete Order");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout orderHandlingPanelLayout = new javax.swing.GroupLayout(orderHandlingPanel);
         orderHandlingPanel.setLayout(orderHandlingPanelLayout);
         orderHandlingPanelLayout.setHorizontalGroup(
@@ -491,7 +500,7 @@ public class AdminPannel extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(orderHandlingPanelLayout.createSequentialGroup()
                         .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1255, Short.MAX_VALUE)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
                             .addGroup(orderHandlingPanelLayout.createSequentialGroup()
                                 .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(orderHandlingPanelLayout.createSequentialGroup()
@@ -499,7 +508,9 @@ public class AdminPannel extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(searchOrderBtn))
                                     .addComponent(jLabel15))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 823, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(addNewBlendsBtn)))
                         .addContainerGap())))
         );
@@ -508,13 +519,15 @@ public class AdminPannel extends javax.swing.JFrame {
             .addGroup(orderHandlingPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addNewBlendsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(orderHandlingPanelLayout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(searchOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(orderSearchCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(orderSearchCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addNewBlendsBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1218,6 +1231,39 @@ public class AdminPannel extends javax.swing.JFrame {
         //searchBlendComboBox.setEnabled(true);
     }//GEN-LAST:event_searchBlendComboBoxActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         
+        DefaultTableModel model = (DefaultTableModel) orderListTable.getModel();
+        if (orderListTable.getSelectedRow() == -1) {
+            if (orderListTable.getSelectedRow() == 0) {
+                JOptionPane.showMessageDialog(this, "Table is empty", "No Records to show", 0);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a row to delete", "Empty Selection", 2);
+            }
+        } else {
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            String orderID = model.getValueAt(orderListTable.getSelectedRow(), 0).toString();
+            System.out.println("orderID : "+ orderID);
+            int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete user having Employee ID of " + orderID + "? ", "Warning", dialogButton);
+            if (a == JOptionPane.YES_OPTION) {               
+                
+                int rst = order.removeOrder(orderID);
+               
+                if (rst == 1) {                    
+                    JOptionPane.showMessageDialog(this, "Order successfully deleted", "Deleted Successfuly", 1);
+                    populateOrderListTable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "There were some issues with the database. Please contact developers.\n\nError code : AdminPannel 1255", "Error", 0);
+                    System.exit(0);
+                }
+
+            } else {
+                return;
+            }
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /* start of loadBlendDetails method */
     private void loadBlendDetails(int row) {
 
@@ -1296,6 +1342,7 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JButton deleteUserBtn;
     private javax.swing.JLabel greetingsLbl;
     private javax.swing.JLabel inventoryBlendLbl1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

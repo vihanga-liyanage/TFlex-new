@@ -34,7 +34,7 @@ public class Order {
     public String getOrderID() {
         return orderID;
     }
-    
+
     //Populate orderListTable in the order handling tab (NOT FINISHED........!!!!!!!!!)
     public void populateOrderListTable(DefaultTableModel tModel) {
         ResultArray resultSet;
@@ -72,7 +72,7 @@ public class Order {
         }
         return orderID;
     }
-    
+
     //Getting order statuses
     public String[] getOrderCounts() {
         String query = "SELECT COUNT(orderID) FROM `order` WHERE orderStatus='0'";
@@ -81,18 +81,18 @@ public class Order {
         while (res.next()) {
             pendingCount = res.getString(0);
         }
-        
+
         query = "SELECT COUNT(orderID) FROM `order` WHERE orderStatus='1'";
         res = dbConn.getResultArray(query);
         String receivedCount = "";
         while (res.next()) {
             receivedCount = res.getString(0);
         }
-        
+
         String[] counts = {pendingCount, receivedCount};
         return counts;
     }
-    
+
     //Loading the orderComboBox in the order handling tab
     public ResultArray loadOrderComboBox() {
         ResultArray resultSet;
@@ -173,7 +173,7 @@ public class Order {
         ResultArray resultSet0, resultSet1;
 
         String ingName = ing.replace("'", "''");
-        
+
         String query0 = "SELECT ingID,invisibleStock FROM ingredient WHERE ingName = '" + ingName + "'";
         resultSet0 = dbConn.getResultArray(query0);
         int ingID = 0;
@@ -197,8 +197,8 @@ public class Order {
 
         String query2 = "UPDATE orderingredient SET excessQty = '" + newExess + "', remarks = '" + remark + "' WHERE orderID = '" + oID + "' AND ingID = '" + ingID + "'";
         int result1 = dbConn.updateResult(query2);
-        
-        String query3 = "UPDATE ingredient SET invisibleStock = '"+newInvisible+"' WHERE ingName = '" + ingName + "'";
+
+        String query3 = "UPDATE ingredient SET invisibleStock = '" + newInvisible + "' WHERE ingName = '" + ingName + "'";
         int result2 = dbConn.updateResult(query3);
         return result2;
     }
@@ -269,7 +269,7 @@ public class Order {
         }
         return nextOrderID;
     }
-    
+
     /* start of getNextPendingRecievedOrderID method */
     public String getNextPendingRecievedOrderID(String orderID) {
         String nextOrderID = "0";
@@ -307,7 +307,7 @@ public class Order {
         }
         return nextIngList;
     }
-    
+
     /* Start of getBlendDetailsOfNextOrder method */
     public ArrayList<Blend> getBlendDetailsOfNextOrder(String orderID) {
         ResultArray resultArray;
@@ -372,7 +372,7 @@ public class Order {
         }
         return updated;
     }
-    
+
     /* start of updateBlendStock method */
     public boolean updateBlendStock(ArrayList<Blend> blendList, String orderID) {
         boolean updated = false;
@@ -412,5 +412,19 @@ public class Order {
             }
         }
         return updated;
+    }
+
+    public int removeOrder(String orderID) {
+
+        String query1 = "DELETE FROM orderblend WHERE orderID = '" + orderID + "'";
+        int rslt1 = dbConn.updateResult(query1);
+
+        String query2 = "DELETE FROM orderingredient WHERE orderID = '" + orderID + "'";
+        int rslt2 = dbConn.updateResult(query2);
+
+        String query3 = "DELETE FROM 'order' WHERE orderID='" + orderID + "'";
+        int rslt = dbConn.updateResult(query3);
+
+        return rslt;
     }
 }

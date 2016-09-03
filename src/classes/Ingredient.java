@@ -383,7 +383,7 @@ public class Ingredient {
         return res;
     }
 
-    public int addNewIngredient(String Name, String type, String supplier, float price) {
+    public int addNewIngredient(String Name, String type, String supplier) {
         String rslt1= "", rslt2 ="";
         
         String query1 = "SELECT ingCategoryID FROM ingredientcategory WHERE categoryName = '" + type + "' ";
@@ -403,7 +403,7 @@ public class Ingredient {
 
         String replacedIngName = Name.replace("'", "''");
         
-        String query3 = "INSERT INTO ingredient(ingName,ingCategoryID,visibleStock,alocatedStock,invisibleStock,supID,unitPrice) values('" + replacedIngName + "','" + rslt1 + "',0,0,0,'" + rslt2 + "','" + price + "') ";
+        String query3 = "INSERT INTO ingredient(ingName,ingCategoryID,visibleStock,alocatedStock,invisibleStock,supID,unitPrice) values('" + replacedIngName + "','" + rslt1 + "',0,0,0,'" + rslt2 + "',0) ";
         
         int rslt3 = dbConn.updateResult(query3);
         return rslt3;

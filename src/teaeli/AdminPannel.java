@@ -1244,7 +1244,7 @@ public class AdminPannel extends javax.swing.JFrame {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             String orderID = model.getValueAt(orderListTable.getSelectedRow(), 0).toString();
             System.out.println("orderID : "+ orderID);
-            int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete user having Employee ID of " + orderID + "? ", "Warning", dialogButton);
+            int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the order " + orderID + "? ", "Warning", dialogButton);
             if (a == JOptionPane.YES_OPTION) {               
                 
                 int rst = order.removeOrder(orderID);

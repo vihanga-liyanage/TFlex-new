@@ -60,7 +60,7 @@ public class UpdateIngStock extends javax.swing.JFrame {
         if ("teaeli.AdminPannel".equals(pannel.getClass().getName())) {
             AdminPannel adminPannel = (AdminPannel) pannel;
             adminPannel.populateIngStockTable();
-            adminPannel.populateIngHistoryTable();
+//            adminPannel.populateIngHistoryTable();
         } else if ("teaeli.ManagerPannel".equals(pannel.getClass().getName())) {
             ManagerPannel managerPannel = (ManagerPannel) pannel;
             managerPannel.populateIngStockTable();

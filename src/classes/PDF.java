@@ -460,7 +460,7 @@ public class PDF {
                 companyNameAndDate.setWidthPercentage(100);
                 companyNameAndDate.setSpacingBefore(20);
                 companyNameAndDate.setWidths(new int[]{5, 1});
-                companyNameAndDate.addCell(companyNameAndDate("The Leaf & Spice Company"));
+                companyNameAndDate.addCell(companyNameAndDate("Ceylon Leaf & Spice Co. (PVT) LTD."));
 
                 //powered by
                 PdfPTable poweredBy = new PdfPTable(1);

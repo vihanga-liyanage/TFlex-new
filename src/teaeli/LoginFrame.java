@@ -24,7 +24,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     public String user;
     private String userName, password;
-    private int passwrdCount = 0;
+    private int passwordCount = 0;
 
     DBConnection dbConn = DBConnection.getInstance();
     
@@ -210,13 +210,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         } else if (loginResponse == 4 | loginResponse == 3) {
 
-            if (passwrdCount != 3) {
+            if (passwordCount != 3) {
                 JOptionPane.showMessageDialog(this, "Invalid username or password","Invalid credentials",0);//the provided password does not exist in the db
                 txtUsername.setText("");
                 txtPassword.setText("");
                 txtUsername.requestFocusInWindow();
-                passwrdCount++;
-            } else if (passwrdCount == 3) {
+                passwordCount++;
+            } else if (passwordCount == 3) {
                 JOptionPane.showMessageDialog(this, "Maximum Three Attempts are allowed for login","Login Error",0);
                 System.exit(0);
             }

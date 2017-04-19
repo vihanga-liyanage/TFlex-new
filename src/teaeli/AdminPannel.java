@@ -29,9 +29,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import classes.PDF;
 import classes.ResultArray;
-import java.util.Calendar;
 import javax.swing.ImageIcon;
-import javax.swing.JTable;
 import static teaeli.TeaELI.loginFrame;
 
 public class AdminPannel extends javax.swing.JFrame {
@@ -45,7 +43,6 @@ public class AdminPannel extends javax.swing.JFrame {
     public static IngredientDetails ingredientDetails = new IngredientDetails();
     Order order = new Order();
     int blendGo = 0, ingredientGo = 0;
-    private Object ingTable;
     java.util.Date date = new java.util.Date();
     SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy.MM.dd");
     String today = sdf3.format(date);

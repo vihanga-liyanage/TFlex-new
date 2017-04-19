@@ -1,6 +1,7 @@
 package classes;
 
 import static classes.DBConnection.logger;
+import static classes.DBConnection.TFlexFolderPath;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -38,11 +39,9 @@ import javax.swing.JTable;
 public class PDF {
 
     private final String font = "Segoe UI Light";
-    private final String path = "C:\\TFlex\\";
     private final String imgPath = "src\\img\\";
 
-    public PDF() {
-    }
+    public PDF() { }
 
     //private methods ==========================================================
     private PdfPCell getTableHeaderCell(String name) {
@@ -233,7 +232,7 @@ public class PDF {
             Document doc = new Document(PageSize.A4.rotate(), 20, 20, 20, 20);
 
             //Creating the directory for the order
-            String tempPath = path + "RM-Orders\\" + data[0] + "\\";
+            String tempPath = TFlexFolderPath + "RM-Orders\\" + data[0] + "\\";
             new File(tempPath).mkdirs();
 
             PdfWriter.getInstance(doc, new FileOutputStream(tempPath + "RM_Order_Supplie_Wise_Master_Plan-" + data[0] + ".pdf"));
@@ -332,7 +331,7 @@ public class PDF {
             Document doc = new Document(PageSize.A4.rotate(), 20, 20, 20, 20);
 
             //Creating the directory for the order
-            String tempPath = path + "RM-Orders\\" + data[0] + "\\";
+            String tempPath = TFlexFolderPath + "RM-Orders\\" + data[0] + "\\";
             new File(tempPath).mkdirs();
 
             PdfWriter.getInstance(doc, new FileOutputStream(tempPath + "RM_Order_Category_Wise_Master_Plan-" + data[0] + ".pdf"));
@@ -430,7 +429,7 @@ public class PDF {
         int pdfOK = 1;
         int count = 0;
         String[] supNameArray = supplierList.toArray(new String[supplierList.size()]);
-        String tempPath = path + "RM-Orders\\" + orderID + "\\";
+        String tempPath = TFlexFolderPath + "RM-Orders\\" + orderID + "\\";
         for (List lst : mainList) {
             Document doc = new Document();
             String suppName = "";
@@ -584,7 +583,7 @@ public class PDF {
             Document doc = new Document(PageSize.A4.rotate(), 20, 20, 20, 20);
 
             //Creating the directory for the order
-            String tempPath = path + "Ingredient Stock History\\";
+            String tempPath = TFlexFolderPath + "Ingredient Stock History\\";
             new File(tempPath).mkdirs();
 
             PdfWriter.getInstance(doc, new FileOutputStream(tempPath + "Ingredient_Stock_History-" + dateRange + ".pdf"));
@@ -670,7 +669,7 @@ public class PDF {
             Document doc = new Document(PageSize.A4.rotate(), 20, 20, 20, 20);
 
             //Creating the directory for the order
-            String tempPath = path + "Blend Stock History\\";
+            String tempPath = TFlexFolderPath + "Blend Stock History\\";
             new File(tempPath).mkdirs();
 
             PdfWriter.getInstance(doc, new FileOutputStream(tempPath + "Blend_Stock_History-" + dateRange + ".pdf"));

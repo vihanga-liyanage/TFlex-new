@@ -392,7 +392,7 @@ public class OrderDetails extends javax.swing.JFrame {
         DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         Date today = new Date();
         String[] data = {orderIDLabel.getText(), formatter.format(today)};
-        pdf.generateMasterPlanPDF(temp, data);
+        pdf.generateSupplieWiseMasterPlanPDF(temp, data);
     }//GEN-LAST:event_updateOrderBtnActionPerformed
 
     //overiding Integer.parseInt() to accept nums with commas

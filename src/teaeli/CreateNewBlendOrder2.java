@@ -776,14 +776,19 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
 
             DefaultTableModel model = (DefaultTableModel) masterPlanTbl.getModel();
 
-            //Generating master plan PDF
+            //Generating supplie wise master plan PDF
             JTable temp = new JTable(model);
             temp.setAutoCreateRowSorter(true);
             temp.getRowSorter().toggleSortOrder(4);
             DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
             Date today = new Date();
             String[] data = {orderIDLabel.getText(), formatter.format(today)};
-            pdf.generateMasterPlanPDF(temp, data);
+            pdf.generateSupplieWiseMasterPlanPDF(temp, data);
+            setProgress(85);
+            
+            //Generating category wise master plan PDF
+            temp.getRowSorter().toggleSortOrder(5);
+            pdf.generateCategoryWiseMasterPlanPDF(temp, data);
             setProgress(90);
             
             //Removing entries of 0 balance

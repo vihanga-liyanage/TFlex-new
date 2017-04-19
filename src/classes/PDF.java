@@ -86,8 +86,8 @@ public class PDF {
         return cell;
     }
 
-    //private method for po pdfs
-    private PdfPCell POLogo(String path) {
+    //method for PO pdfs
+    private PdfPCell getPOLogo(String path) {
         Image img = null;
         try {
             img = Image.getInstance(path);
@@ -103,7 +103,7 @@ public class PDF {
         return cell;
     }
 
-    private PdfPCell POHeader(String text) {
+    private PdfPCell getPOHeader(String text) {
         String font = "Segoe UI Semilight";
         PdfPCell cell = new PdfPCell();
         Paragraph p = new Paragraph(text, FontFactory.getFont(font, 20, Font.BOLD));
@@ -116,7 +116,7 @@ public class PDF {
         return cell;
     }
 
-    private PdfPCell SupName(String text) {
+    private PdfPCell getSupName(String text) {
         PdfPCell cell = new PdfPCell();
         Paragraph p = new Paragraph(text, FontFactory.getFont(font, 13, Font.BOLD));
         p.setAlignment(Element.ALIGN_LEFT);
@@ -130,7 +130,7 @@ public class PDF {
         return cell;
     }
 
-    private PdfPCell PODetails(String text) {
+    private PdfPCell getPODetails(String text) {
         PdfPCell cell = new PdfPCell();
         Paragraph p = new Paragraph(text, FontFactory.getFont(font, 10, BaseColor.BLACK));
         p.setAlignment(Element.ALIGN_JUSTIFIED);
@@ -145,7 +145,7 @@ public class PDF {
         return cell;
     }
 
-    private PdfPCell tableHeaderCellPO(String name) {
+    private PdfPCell getPOTableHeaderCell(String name) {
         PdfPCell cell = new PdfPCell(new Paragraph(name, FontFactory.getFont(font, 10, Font.BOLD, BaseColor.BLACK)));
         cell.setPadding(5);
         cell.setPaddingBottom(7);
@@ -153,7 +153,7 @@ public class PDF {
         return cell;
     }
 
-    private PdfPCell tableCellPO(String name) {
+    private PdfPCell getPOTableCell(String name) {
         PdfPCell cell = new PdfPCell(new Paragraph(name, FontFactory.getFont(font, 10, BaseColor.BLACK)));
         cell.setPadding(5);
         cell.setPaddingBottom(7);
@@ -161,7 +161,7 @@ public class PDF {
         return cell;
     }
 
-    private PdfPCell discountAndTaxexTopic(String name) {
+    private PdfPCell getDiscountAndTaxexTopic(String name) {
         String font = "Segoe UI Semilight";
         Paragraph p = new Paragraph(name, FontFactory.getFont(font, 10, Font.BOLD, BaseColor.BLACK));
         PdfPCell cell = new PdfPCell(p);
@@ -170,7 +170,7 @@ public class PDF {
         return cell;
     }
 
-    private PdfPCell discountAndTaxexData(String text) {
+    private PdfPCell getDiscountAndTaxexData(String text) {
         String font = "Segoe UI Semilight";
         Paragraph p = new Paragraph(text, FontFactory.getFont(font, 10, BaseColor.BLACK));
         p.setAlignment(Element.ALIGN_LEFT);
@@ -190,21 +190,9 @@ public class PDF {
         //cell.setPaddingBottom(5);
         return cell;
     }
-
     //end of private methods ===================================================
-    //start of methods for calculations==================================================
-    private float parseFloat(String num) {
-        try {
-            return Float.parseFloat(num);
-        } catch (NumberFormatException e) {
-            if (num.matches("[[0-9]{1,2}+,]*.[0-9]*")) {
-                num = num.replace(",", "");
-                return Float.parseFloat(num);
-            }
-        }
-        return 0;
-    }
-
+    
+    //methods for calculations =================================================
     private String formatNum(String num) {
         String decimal = num, point = null;
         if (num.contains(".")) {
@@ -238,9 +226,9 @@ public class PDF {
         num = round(num, 2);
         return formatNum(Float.toString(num));
     }
-
-    //end of methods for calculations==================================================
-    public void generateMasterPlanPDF(JTable table, String[] data) {
+    //end of methods for calculations===========================================
+    
+    public void generateSupplieWiseMasterPlanPDF(JTable table, String[] data) {
         try {
             Document doc = new Document(PageSize.A4.rotate(), 20, 20, 20, 20);
 
@@ -248,7 +236,106 @@ public class PDF {
             String tempPath = path + "RM-Orders\\" + data[0] + "\\";
             new File(tempPath).mkdirs();
 
-            PdfWriter.getInstance(doc, new FileOutputStream(tempPath + "RM_Order_Master_Plan-" + data[0] + ".pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream(tempPath + "RM_Order_Supplie_Wise_Master_Plan-" + data[0] + ".pdf"));
+            doc.open();
+
+            float[] coloumWidths = {5, 2, 2, 2, 5};
+            PdfPTable masterTable = new PdfPTable(coloumWidths);
+            masterTable.setWidthPercentage(100);
+
+            //Adding logo
+            PdfPCell logoCell = new PdfPCell(Image.getInstance(imgPath + "logo.png"));
+
+            logoCell.setColspan(3);
+            masterTable.addCell(logoCell);
+
+            //Adding master plan header data as another table
+            coloumWidths = new float[]{5.2f, 5};
+            PdfPTable headerTable = new PdfPTable(coloumWidths);
+            PdfPCell titleCell = new PdfPCell(new Paragraph("RAW MATERIAL ORDERING MASTER PLAN", FontFactory.getFont(font, 11, Font.BOLD)));
+            titleCell.setPadding(15);
+            titleCell.setColspan(10);
+            titleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            headerTable.addCell(titleCell);
+            headerTable.addCell(getHeaderNameCell("MASTER PLAN #"));
+            headerTable.addCell(getHeaderDataCell(data[0]));
+            headerTable.addCell(getHeaderNameCell("DATE"));
+            headerTable.addCell(getHeaderDataCell(data[1]));
+            headerTable.addCell(getHeaderNameCell("Client"));
+            headerTable.addCell(getHeaderDataCell(""));
+            headerTable.addCell(getHeaderNameCell("Invoice Ref"));
+            headerTable.addCell(getHeaderDataCell("SAMPLES"));
+
+            PdfPCell headerDataCell = new PdfPCell(headerTable);
+            headerDataCell.setColspan(5);
+            masterTable.addCell(headerDataCell);
+
+            //Adding master table headers
+            masterTable.addCell(getTableHeaderCell("Item Description"));
+            masterTable.addCell(getTableHeaderCell("Qty Needed"));
+//            masterTable.addCell(getTableHeaderCell("Visible Stock"));
+//            masterTable.addCell(getTableHeaderCell("Invisible Stock"));
+//            masterTable.addCell(getTableHeaderCell("Balance"));
+            masterTable.addCell(getTableHeaderCell("Excess Qty"));
+            masterTable.addCell(getTableHeaderCell("Final Order"));
+            masterTable.addCell(getTableHeaderCell("Supplier Name"));
+
+            //Adding data from master table
+            String category = table.getValueAt(0, 5).toString();
+            masterTable.addCell(getIngCategoryCell(category.toUpperCase()));
+
+            for (int i = 0; i < table.getRowCount(); i++) {
+                if (!category.equals(table.getValueAt(i, 5).toString())) {
+                    category = table.getValueAt(i, 5).toString();
+                    masterTable.addCell(getIngCategoryCell(category.toUpperCase()));
+                }
+                masterTable.addCell(getTableDataCell(table.getValueAt(i, 0).toString()));
+                masterTable.addCell(getTableDataCell(table.getValueAt(i, 1).toString()));
+                masterTable.addCell(getTableDataCell(table.getValueAt(i, 2).toString()));
+                masterTable.addCell(getTableDataCell(table.getValueAt(i, 3).toString()));
+                masterTable.addCell(getTableDataCell(table.getValueAt(i, 4).toString()));
+//                masterTable.addCell(getTableDataCell(table.getValueAt(i, 5).toString()));
+//                masterTable.addCell(getTableDataCell(table.getValueAt(i, 6).toString()));
+//                masterTable.addCell(getTableDataCell(table.getValueAt(i, 7).toString()));
+            }
+            doc.add(masterTable);
+
+            //powered by
+            PdfPTable poweredBy = new PdfPTable(1);
+            poweredBy.setWidthPercentage(100);
+            poweredBy.setSpacingBefore(5);
+            poweredBy.addCell(companyNameAndDate("Powered By : Reid Solutions "));
+            doc.add(poweredBy);
+
+            //copyright
+            PdfPTable copyRight = new PdfPTable(1);
+            copyRight.setWidthPercentage(100);
+            copyRight.setSpacingBefore(5);
+            copyRight.addCell(companyNameAndDate("\u00a9" + "  2016 Reid Solutions All RIGHTS RESERVED"));
+            doc.add(copyRight);
+
+            doc.close();
+
+        } catch (FileNotFoundException | DocumentException ex) {
+            logger.log(Level.WARNING, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "There were some issues with the database. Please contact developers.\n\nError code : PDF 314", "Error", 0);
+            System.exit(0);
+        } catch (IOException ex) {
+            logger.log(Level.WARNING, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "There were some issues with the database. Please contact developers.\n\nError code : PDF 317", "Error", 0);
+            System.exit(0);
+        }
+    }
+    
+    public void generateCategoryWiseMasterPlanPDF(JTable table, String[] data) {
+        try {
+            Document doc = new Document(PageSize.A4.rotate(), 20, 20, 20, 20);
+
+            //Creating the directory for the order
+            String tempPath = path + "RM-Orders\\" + data[0] + "\\";
+            new File(tempPath).mkdirs();
+
+            PdfWriter.getInstance(doc, new FileOutputStream(tempPath + "RM_Order_Category_Wise_Master_Plan-" + data[0] + ".pdf"));
             doc.open();
 
             float[] coloumWidths = {5, 2, 2, 2, 5};
@@ -371,8 +458,8 @@ public class PDF {
                 PdfPTable POHeadertable = new PdfPTable(2);
                 POHeadertable.setWidthPercentage(100);
                 POHeadertable.setWidths(new int[]{1, 1});
-                POHeadertable.addCell(POLogo(fileName));
-                POHeadertable.addCell(POHeader("Purchase Order"));
+                POHeadertable.addCell(getPOLogo(fileName));
+                POHeadertable.addCell(getPOHeader("Purchase Order"));
                 doc.add(POHeadertable);
 
                 //sup name and po details
@@ -380,12 +467,12 @@ public class PDF {
                 table2.setWidthPercentage(100);
                 float[] widths = {7, 4, 5};
                 table2.setWidths(widths);
-                table2.addCell(SupName(suppName));
+                table2.addCell(getSupName(suppName));
                 //get date 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = new Date();
-                table2.addCell(PODetails("Order Date" + '\n' + "PO Code" + '\n' + "Delivery Date" + '\n' + "Retrieve Location" + '\n' + "Supplier Reference"));
-                table2.addCell(PODetails(": " + dateFormat.format(date) + '\n' + ": PO0053" + '\n' + ": 20160201" + '\n' + ": OFOffice" + '\n' + ": ALLOCATION PLAN 003"));
+                table2.addCell(getPODetails("Order Date" + '\n' + "PO Code" + '\n' + "Delivery Date" + '\n' + "Retrieve Location" + '\n' + "Supplier Reference"));
+                table2.addCell(getPODetails(": " + dateFormat.format(date) + '\n' + ": PO0053" + '\n' + ": 20160201" + '\n' + ": OFOffice" + '\n' + ": ALLOCATION PLAN 003"));
                 doc.add(table2);
 
                 //po table
@@ -394,14 +481,14 @@ public class PDF {
                 table.setWidthPercentage(100);
                 table.setSpacingBefore(20);
 
-                table.addCell(tableHeaderCellPO("Ingredient Name"));
+                table.addCell(getPOTableHeaderCell("Ingredient Name"));
                 //table.addCell(tableHeaderCellPO("Unit Price (Rs)"));
-                table.addCell(tableHeaderCellPO("Quantity (g)"));
+                table.addCell(getPOTableHeaderCell("Quantity (g)"));
                 //table.addCell(tableHeaderCellPO("total (Rs)"));
 
                 List lst2 = mainList.get(count);
                 for (int i = 0; i < lst.size(); i++) {
-                    table.addCell(tableCellPO(lst.get(i).toString()));
+                    table.addCell(getPOTableCell(lst.get(i).toString()));
 
                 }
                 doc.add(table);

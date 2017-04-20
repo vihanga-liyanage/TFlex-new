@@ -355,6 +355,7 @@ public class AdminPannel extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         orderSearchCombo = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        addNewProductsBtn = new javax.swing.JButton();
         settingsPanel = new javax.swing.JPanel();
         settingsTabbedPane = new javax.swing.JTabbedPane();
         settingsIngPanel = new javax.swing.JPanel();
@@ -489,6 +490,14 @@ public class AdminPannel extends javax.swing.JFrame {
             }
         });
 
+        addNewProductsBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        addNewProductsBtn.setText("Create New Product Order");
+        addNewProductsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewProductsBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout orderHandlingPanelLayout = new javax.swing.GroupLayout(orderHandlingPanel);
         orderHandlingPanel.setLayout(orderHandlingPanelLayout);
         orderHandlingPanelLayout.setHorizontalGroup(
@@ -512,23 +521,28 @@ public class AdminPannel extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
+                                .addComponent(addNewProductsBtn)
+                                .addGap(18, 18, 18)
                                 .addComponent(addNewBlendsBtn)))
                         .addContainerGap())))
         );
         orderHandlingPanelLayout.setVerticalGroup(
             orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderHandlingPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderHandlingPanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(searchOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(orderSearchCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addNewBlendsBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)))
+                    .addGroup(orderHandlingPanelLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addNewBlendsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addNewProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1307,6 +1321,12 @@ public class AdminPannel extends javax.swing.JFrame {
         System.out.println("Edit");
     }//GEN-LAST:event_editTFlexFolderLocationButtonActionPerformed
 
+    private void addNewProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewProductsBtnActionPerformed
+        CreateNewProductOrder createNewProductOrder = new CreateNewProductOrder();
+            createNewProductOrder.setVisible(true);
+            createNewProductOrder.pannel = this;
+    }//GEN-LAST:event_addNewProductsBtnActionPerformed
+
     /* start of loadBlendDetails method */
     private void loadBlendDetails(int row) {
 
@@ -1377,6 +1397,7 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JLabel TFlexFolderLocationLabel;
     private javax.swing.JButton addItemBtn;
     private javax.swing.JButton addNewBlendsBtn;
+    private javax.swing.JButton addNewProductsBtn;
     private javax.swing.JButton addProductBtn;
     private javax.swing.JButton addUserBtn;
     private javax.swing.JLabel blendBaseLbl;

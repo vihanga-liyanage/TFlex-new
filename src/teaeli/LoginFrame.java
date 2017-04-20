@@ -55,8 +55,10 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     public int checkLogin(String userName, String password) {
+        
         String query = "SELECT username,designation FROM user where password = '" + password + "' and username = ('" + userName + "')";
         ResultArray rs = dbConn.getResultArray(query);
+        
         while(rs.next()){
 
             if (rs.getString(1).equals("Admin")) {

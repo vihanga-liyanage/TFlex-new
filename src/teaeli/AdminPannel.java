@@ -385,6 +385,10 @@ public class AdminPannel extends javax.swing.JFrame {
         userTable = new javax.swing.JTable();
         addUserBtn = new javax.swing.JButton();
         deleteUserBtn = new javax.swing.JButton();
+        settingsUserPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        TFlexFolderLocationLabel = new javax.swing.JLabel();
+        editTFlexFolderLocationButton = new javax.swing.JButton();
         logoLabel = new javax.swing.JLabel();
         timeLabel = new javax.swing.JLabel();
         greetingsLbl = new javax.swing.JLabel();
@@ -863,6 +867,44 @@ public class AdminPannel extends javax.swing.JFrame {
 
         settingsTabbedPane.addTab("    Users    ", settingsUserPanel);
 
+        settingsUserPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setText("Default TFlex Folder Location");
+
+        editTFlexFolderLocationButton.setText("Edit");
+        editTFlexFolderLocationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editTFlexFolderLocationButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout settingsUserPanel1Layout = new javax.swing.GroupLayout(settingsUserPanel1);
+        settingsUserPanel1.setLayout(settingsUserPanel1Layout);
+        settingsUserPanel1Layout.setHorizontalGroup(
+            settingsUserPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsUserPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(TFlexFolderLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(editTFlexFolderLocationButton)
+                .addContainerGap(596, Short.MAX_VALUE))
+        );
+        settingsUserPanel1Layout.setVerticalGroup(
+            settingsUserPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsUserPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(settingsUserPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(settingsUserPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TFlexFolderLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editTFlexFolderLocationButton))
+                .addContainerGap(440, Short.MAX_VALUE))
+        );
+
+        settingsTabbedPane.addTab("Configurations", settingsUserPanel1);
+
         javax.swing.GroupLayout settingsPanelLayout = new javax.swing.GroupLayout(settingsPanel);
         settingsPanel.setLayout(settingsPanelLayout);
         settingsPanelLayout.setHorizontalGroup(
@@ -1261,6 +1303,10 @@ public class AdminPannel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void editTFlexFolderLocationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTFlexFolderLocationButtonActionPerformed
+        System.out.println("Edit");
+    }//GEN-LAST:event_editTFlexFolderLocationButtonActionPerformed
+
     /* start of loadBlendDetails method */
     private void loadBlendDetails(int row) {
 
@@ -1328,6 +1374,7 @@ public class AdminPannel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel TFlexFolderLocationLabel;
     private javax.swing.JButton addItemBtn;
     private javax.swing.JButton addNewBlendsBtn;
     private javax.swing.JButton addProductBtn;
@@ -1337,6 +1384,7 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JTable blendDetailsTbl;
     private javax.swing.JLabel blendNameLbl;
     private javax.swing.JButton deleteUserBtn;
+    private javax.swing.JButton editTFlexFolderLocationButton;
     private javax.swing.JLabel greetingsLbl;
     private javax.swing.JLabel inventoryBlendLbl1;
     private javax.swing.JButton jButton1;
@@ -1345,6 +1393,7 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1371,6 +1420,7 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JPanel settingsPanel;
     private javax.swing.JTabbedPane settingsTabbedPane;
     private javax.swing.JPanel settingsUserPanel;
+    private javax.swing.JPanel settingsUserPanel1;
     private javax.swing.JLabel timeLabel;
     public javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables

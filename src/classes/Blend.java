@@ -1,6 +1,7 @@
 package classes;
 
 import static classes.DBConnection.logger;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import javax.swing.JComboBox;
@@ -14,6 +15,7 @@ public class Blend {
     private int visibleStock, alocatedStock, invisibleStock;
     private int orderReqQty, orderExcessQty, oldStockQty, updatedStockQTy;
     private int deliverQty, delRemoveQty, sampleQty;
+    private ArrayList<Ingredient> ingredientsInBlend = new ArrayList<Ingredient>();
 
     Ingredient ingredient;
     DBConnection dbConn = DBConnection.getInstance();

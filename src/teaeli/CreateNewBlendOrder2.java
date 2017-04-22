@@ -143,13 +143,21 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
     }
     
     private void populateMasterPlanTbl() {
-        for (int i = 0; i < blendListTbl.getRowCount(); i++) {
+        int blendCount = blendListTbl.getRowCount();
+        //Creating a blend array for the use of blend schedule
+        Blend blendArray[] = new Blend[blendCount];
+        
+        for (int i = 0; i < blendCount; i++) {
             String blendName = blendListTbl.getValueAt(i, 0).toString();
             blendName = blendName.replace("'", "\\'");
             float blendQty = parseInt(blendListTbl.getValueAt(i, 1).toString());
             
+            //populate blend array
+            blendArray[i].setBlendName(blendName);
+            blendArray[i].setOrderReqQty(Math.round(blendQty));
+            
             //Add 2% of wastage 
-             blendQty = blendQty + (blendQty*0.02f);
+            blendQty = blendQty + (blendQty*0.02f);
             
             if (blendQty > 0) {
                 ResultArray res = blend.getRecipie(blendName);
@@ -199,6 +207,8 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
 
         boolean isNew = true;
         float ingQty = (float) blendQty * percentage / 100.0f;
+        //populate ingredient arraylist of blend objects in blend array
+        
         for (int i = 0; i < masterPlanTbl.getRowCount(); i++) {
             if (masterPlanTbl.getValueAt(i, 0).equals(row.get(1))) {
                 ingQty += parseFloat(masterPlanTbl.getValueAt(i, 1).toString());

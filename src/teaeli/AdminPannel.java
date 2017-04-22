@@ -4,6 +4,8 @@ import classes.Blend;
 import classes.Ingredient;
 import classes.StockHistory;
 import classes.AutoSuggest;
+import static classes.DBConnection.TFlexFolderPath;
+import static classes.DBConnection.logger;
 import classes.Order;
 import classes.Supplier;
 import classes.User;
@@ -31,6 +33,15 @@ import classes.PDF;
 import classes.ResultArray;
 import javax.swing.ImageIcon;
 import static teaeli.TeaELI.loginFrame;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Properties;
+import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
+import javax.swing.border.Border;
 
 public class AdminPannel extends javax.swing.JFrame {
 
@@ -257,6 +268,13 @@ public class AdminPannel extends javax.swing.JFrame {
 //        blendStockHistoryTbl.setAutoCreateRowSorter(true);
         userTable.setAutoCreateRowSorter(true);
 
+        //Load properties in settings tab
+        TFlexFolderLocationLabel.setText(TFlexFolderPath);
+        
+        //set TFlexFolderLocationLabel border
+        Border emptyBorder = javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1);
+        Border lineBorder = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153));
+        TFlexFolderLocationLabel.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
     }
 
     public void setGreetings(String greeting) {
@@ -355,6 +373,7 @@ public class AdminPannel extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         orderSearchCombo = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        addNewProductsBtn = new javax.swing.JButton();
         settingsPanel = new javax.swing.JPanel();
         settingsTabbedPane = new javax.swing.JTabbedPane();
         settingsIngPanel = new javax.swing.JPanel();
@@ -386,9 +405,11 @@ public class AdminPannel extends javax.swing.JFrame {
         addUserBtn = new javax.swing.JButton();
         deleteUserBtn = new javax.swing.JButton();
         settingsUserPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         TFlexFolderLocationLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         editTFlexFolderLocationButton = new javax.swing.JButton();
+        saveSettingsButton = new javax.swing.JButton();
         logoLabel = new javax.swing.JLabel();
         timeLabel = new javax.swing.JLabel();
         greetingsLbl = new javax.swing.JLabel();
@@ -489,6 +510,14 @@ public class AdminPannel extends javax.swing.JFrame {
             }
         });
 
+        addNewProductsBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        addNewProductsBtn.setText("Create New Product Order");
+        addNewProductsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewProductsBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout orderHandlingPanelLayout = new javax.swing.GroupLayout(orderHandlingPanel);
         orderHandlingPanel.setLayout(orderHandlingPanelLayout);
         orderHandlingPanelLayout.setHorizontalGroup(
@@ -512,23 +541,28 @@ public class AdminPannel extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
+                                .addComponent(addNewProductsBtn)
+                                .addGap(18, 18, 18)
                                 .addComponent(addNewBlendsBtn)))
                         .addContainerGap())))
         );
         orderHandlingPanelLayout.setVerticalGroup(
             orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderHandlingPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderHandlingPanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(searchOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(orderSearchCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addNewBlendsBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)))
+                    .addGroup(orderHandlingPanelLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(orderHandlingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addNewBlendsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addNewProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -869,6 +903,9 @@ public class AdminPannel extends javax.swing.JFrame {
 
         settingsUserPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        TFlexFolderLocationLabel.setBackground(new java.awt.Color(255, 255, 255));
+        TFlexFolderLocationLabel.setAlignmentX(1.0F);
+
         jLabel2.setText("Default TFlex Folder Location");
 
         editTFlexFolderLocationButton.setText("Edit");
@@ -878,32 +915,61 @@ public class AdminPannel extends javax.swing.JFrame {
             }
         });
 
+        saveSettingsButton.setText("Save");
+        saveSettingsButton.setEnabled(false);
+        saveSettingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveSettingsButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(saveSettingsButton)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(TFlexFolderLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(editTFlexFolderLocationButton)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TFlexFolderLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editTFlexFolderLocationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addComponent(saveSettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+        );
+
         javax.swing.GroupLayout settingsUserPanel1Layout = new javax.swing.GroupLayout(settingsUserPanel1);
         settingsUserPanel1.setLayout(settingsUserPanel1Layout);
         settingsUserPanel1Layout.setHorizontalGroup(
             settingsUserPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(settingsUserPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(TFlexFolderLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editTFlexFolderLocationButton)
-                .addContainerGap(596, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(558, Short.MAX_VALUE))
         );
         settingsUserPanel1Layout.setVerticalGroup(
             settingsUserPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(settingsUserPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(settingsUserPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(settingsUserPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TFlexFolderLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(editTFlexFolderLocationButton))
-                .addContainerGap(440, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
-        settingsTabbedPane.addTab("Configurations", settingsUserPanel1);
+        settingsTabbedPane.addTab("    Configurations    ", settingsUserPanel1);
 
         javax.swing.GroupLayout settingsPanelLayout = new javax.swing.GroupLayout(settingsPanel);
         settingsPanel.setLayout(settingsPanelLayout);
@@ -1288,8 +1354,7 @@ public class AdminPannel extends javax.swing.JFrame {
                 
                 int rst = order.removeOrder(orderID);
                
-                if (rst == 1) {                    
-                    JOptionPane.showMessageDialog(this, "Order successfully deleted", "Deleted Successfuly", 1);
+                if (rst == 1) {
                     populateOrderListTable();
                 } else {
                     JOptionPane.showMessageDialog(this, "There were some issues with the database. Please contact developers.\n\nError code : AdminPannel 1255", "Error", 0);
@@ -1303,9 +1368,63 @@ public class AdminPannel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //prompt file chooser window to select new folder
     private void editTFlexFolderLocationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTFlexFolderLocationButtonActionPerformed
-        System.out.println("Edit");
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Select Directory");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+        
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+            TFlexFolderLocationLabel.setText(chooser.getSelectedFile() + "\\");
+            saveSettingsButton.setEnabled(true);
+        }
+        else {
+            TFlexFolderLocationLabel.setText(TFlexFolderPath);
+        }
     }//GEN-LAST:event_editTFlexFolderLocationButtonActionPerformed
+
+    //Write modified properties to config.properties file
+    private void saveSettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSettingsButtonActionPerformed
+        Properties prop = new Properties();
+        OutputStream output = null;
+
+        try {
+            output = new FileOutputStream("src\\resources\\config.properties");
+            
+            //set TFlexFolderPath
+            if (!TFlexFolderLocationLabel.getText().equals(TFlexFolderPath)) {
+                prop.setProperty("TFlexFolderPath", TFlexFolderLocationLabel.getText());
+                TFlexFolderPath = TFlexFolderLocationLabel.getText();
+            }
+
+            prop.store(output, null);
+            logger.log(Level.INFO, "System properties updated.");
+            saveSettingsButton.setEnabled(false);
+        } catch (IOException ex) {
+            logger.log(Level.WARNING, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Could not write system properties. Please contact developers.\n\nError code : AdminPanel 1368", "Error", 0);
+            System.exit(0);
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    logger.log(Level.WARNING, e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Error writing system properties. Please contact developers.\n\nError code : AdminPanel 1376", "Error", 0);
+                    System.exit(0);
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(null, "System properties saved successfully!", "Success", 1);
+    }//GEN-LAST:event_saveSettingsButtonActionPerformed
+
+    private void addNewProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewProductsBtnActionPerformed
+        CreateNewProductOrder createNewProductOrder = new CreateNewProductOrder();
+        createNewProductOrder.setVisible(true);
+        createNewProductOrder.pannel = this;
+    }//GEN-LAST:event_addNewProductsBtnActionPerformed
 
     /* start of loadBlendDetails method */
     private void loadBlendDetails(int row) {
@@ -1377,6 +1496,7 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JLabel TFlexFolderLocationLabel;
     private javax.swing.JButton addItemBtn;
     private javax.swing.JButton addNewBlendsBtn;
+    private javax.swing.JButton addNewProductsBtn;
     private javax.swing.JButton addProductBtn;
     private javax.swing.JButton addUserBtn;
     private javax.swing.JLabel blendBaseLbl;
@@ -1396,6 +1516,7 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1409,6 +1530,7 @@ public class AdminPannel extends javax.swing.JFrame {
     private javax.swing.JComboBox orderSearchCombo;
     private javax.swing.JTable productTable;
     private javax.swing.JButton profileBtn;
+    private javax.swing.JButton saveSettingsButton;
     private javax.swing.JComboBox searchBlendComboBox;
     private javax.swing.JButton searchIngredientBtn;
     public javax.swing.JComboBox searchIngredientComboBox;

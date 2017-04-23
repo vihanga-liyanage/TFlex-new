@@ -15,7 +15,7 @@ public class Blend {
     private int visibleStock, alocatedStock, invisibleStock;
     private int orderReqQty, orderExcessQty, oldStockQty, updatedStockQTy;
     private int deliverQty, delRemoveQty, sampleQty;
-    private ArrayList<Ingredient> ingredientsInBlend = new ArrayList<Ingredient>();
+    private ArrayList<Ingredient> ingredientsInBlend;
 
     Ingredient ingredient;
     DBConnection dbConn = DBConnection.getInstance();
@@ -37,6 +37,7 @@ public class Blend {
         this.deliverQty = 0;
         this.delRemoveQty = 0;
         this.sampleQty = 0;
+        this.ingredientsInBlend = new ArrayList<Ingredient>();
 
         ingredient = new Ingredient();
     }
@@ -154,7 +155,14 @@ public class Blend {
         this.sampleQty = sampleQty;
     }
 
+    public void addIngredientsInBlend(Ingredient ing){
+        this.ingredientsInBlend.add(ing);
+    }
 
+    public ArrayList<Ingredient> getIngredientsList(){
+        return ingredientsInBlend;
+    }
+            
     /* start of populateBlendTable method */
     public void populateBlendTable(DefaultTableModel tableModel) {
         ResultArray resultArray;

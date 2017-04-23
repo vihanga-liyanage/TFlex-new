@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -45,6 +46,7 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
     public CreateNewBlendOrder1 createNewBlendOrder1;
     public List<List<String>> blendList;
     private Task task;
+    public static Blend blendArray[];
 
     /**
      * Creates new form AddNewOrder
@@ -145,7 +147,7 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
     private void populateMasterPlanTbl() {
         int blendCount = blendListTbl.getRowCount();
         //Creating a blend array for the use of blend schedule
-        Blend blendArray[] = new Blend[blendCount];
+        blendArray = new Blend[blendCount];
         
         for (int i = 0; i < blendCount; i++) {
             String blendName = blendListTbl.getValueAt(i, 0).toString();
@@ -153,8 +155,10 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
             float blendQty = parseInt(blendListTbl.getValueAt(i, 1).toString());
             
             //populate blend array
-            blendArray[i].setBlendName(blendName);
-            blendArray[i].setOrderReqQty(Math.round(blendQty));
+            Blend newBlend = new Blend();
+            newBlend.setBlendName(blendName);
+            newBlend.setOrderReqQty(Math.round(blendQty));
+            blendArray[i] = newBlend;
             
             //Add 2% of wastage 
             blendQty = blendQty + (blendQty*0.02f);
@@ -172,13 +176,22 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
                     }
                     ResultArray ingData = ingredient.getIngDataByID(ingID);
                     ingData.next();
-                    addIngToMasterTbl(blendQty, ingPercentage, (List<String>) ingData.getRow());
+                    addIngToMasterTbl(blendQty, ingPercentage, (List<String>) ingData.getRow(), blendArray[i]);
                 }
                 //Adding base composition with calculated percentage
                 ResultArray baseData = ingredient.getIngDataByID(baseID);
                 baseData.next();
-                addIngToMasterTbl(blendQty, 100 - totalIngPercentage, (List<String>) baseData.getRow());
+                addIngToMasterTbl(blendQty, 100 - totalIngPercentage, (List<String>) baseData.getRow(), blendArray[i]);
             }
+        }
+        for (int i = 0; i < blendCount; i++){
+            System.out.println("Blend Name: " + blendArray[i].getBlendName() + ", Qty: " + blendArray[i].getOrderReqQty());
+            ArrayList<Ingredient> res = blendArray[i].getIngredientsList();
+            int size = res.size();
+            for (int j = 0; j < size; j++){
+                System.out.println("    Ingredient: " + res.get(j).getIngName() + ", Qty: " + res.get(j).getOrderReqQty());
+            }
+            System.out.println();
         }
     }
 
@@ -203,11 +216,15 @@ public class CreateNewBlendOrder2 extends javax.swing.JFrame implements Property
     }
 
     //Adding an ingredient into master plan
-    private void addIngToMasterTbl(float blendQty, float percentage, List<String> row) {
+    private void addIngToMasterTbl(float blendQty, float percentage, List<String> row, Blend blend) {
 
         boolean isNew = true;
         float ingQty = (float) blendQty * percentage / 100.0f;
         //populate ingredient arraylist of blend objects in blend array
+        Ingredient newIngredient = new Ingredient();
+        newIngredient.setIngName(row.get(1));
+        newIngredient.setOrderReqQty(ingQty);
+        blend.addIngredientsInBlend(newIngredient);
         
         for (int i = 0; i < masterPlanTbl.getRowCount(); i++) {
             if (masterPlanTbl.getValueAt(i, 0).equals(row.get(1))) {
